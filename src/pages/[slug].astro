@@ -32,17 +32,18 @@ const isContact = Astro.params.slug === 'iletisim';
             </select>
             <label for="contact-message">Mesajınız</label>
             <textarea id="contact-message" name="message" rows="6" maxlength="5000" required></textarea>
-            <p class="captcha-note"><span aria-hidden="true">⛨</span> Gönderim sırasında FormSubmit'in CAPTCHA doğrulaması kullanılır. Doğrulama tamamlanmadan mesaj gönderilmez.</p>
+            <p class="captcha-note"><span aria-hidden="true">⛨</span> Gönderim sırasında otomatik robot kontrolü (reCAPTCHA) uygulanır. Formun çalışması için proje e-posta adresinin FormSubmit üzerinden bir kez etkinleştirilmiş olması gerekir.</p>
             <button class="contact-submit" type="submit">Mesajı gönder <span aria-hidden="true">↗</span></button>
+            <p class="activation-note"><strong>Form etkinleştirme notu:</strong> İlk kullanımda FormSubmit, mnemorisk@gmail.com adresine bir defalık etkinleştirme bağlantısı gönderir. Bu bağlantı onaylanana kadar mesajlar teslim edilmeyebilir. Bu e-posta ziyaretçiye değil, proje posta kutusuna gönderilir. E-posta ulaşmadıysa spam klasörünü kontrol edin veya <a href="https://formsubmit.co/help" target="_blank" rel="noopener noreferrer">FormSubmit yardım sayfasına</a> bakın.</p>
             <p class="privacy-note">Formu göndererek mesajınızın iletişim amacıyla proje e-posta adresine iletilmesini kabul etmiş olursunuz. Hassas kişisel veya sağlık bilgileri paylaşmayınız.</p>
           </form>
         </div>
         <aside class="social-panel">
           <div class="eyebrow">SOSYAL MEDYA</div>
           <h2>Güncel gelişmeleri takip edin.</h2>
-          <a class="social-link" href="https://x.com/mnemorisk" target="_blank" rel="noopener noreferrer"><span class="social-mark">𝕏</span><span><strong>X</strong><small>Proje hesabı</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
-          <a class="social-link" href="https://www.instagram.com/mnemorisk/" target="_blank" rel="noopener noreferrer"><span class="social-mark">◎</span><span><strong>Instagram</strong><small>Proje hesabı</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
-          <p class="social-note">Mnemorisk proje hesaplarını sosyal medyada takip edin.</p>
+          <a class="social-link" href="https://x.com/mnemorisk" target="_blank" rel="noopener noreferrer"><span class="social-mark">𝕏</span><span><strong>X</strong><small>@mnemorisk · x.com/mnemorisk</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
+          <a class="social-link" href="https://www.instagram.com/mnemorisk/" target="_blank" rel="noopener noreferrer"><span class="social-mark">◎</span><span><strong>Instagram</strong><small>@mnemorisk · instagram.com/mnemorisk</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
+          <p class="social-note">Bağlantılar @mnemorisk kullanıcı adına yönlendirilir. Hesaplar henüz oluşturulmadıysa veya kullanıcı adı başka birine aitse profil açılamayabilir.</p>
           <div class="email-note"><span class="eyebrow">E-POSTA</span><a href="mailto:mnemorisk@gmail.com">mnemorisk@gmail.com</a></div>
         </aside>
       </section>
@@ -66,6 +67,7 @@ const isContact = Astro.params.slug === 'iletisim';
     .captcha-note span{font-size:19px;margin-right:8px}
     .contact-submit{display:flex;justify-content:space-between;align-items:center;gap:25px;border:0;background:#2b4235;color:#fff;padding:17px 20px;font:13px Arial,Helvetica,sans-serif;cursor:pointer;text-align:left}
     .contact-submit:hover{background:#42614b}
+    .activation-note{font:13px/1.65 Arial,Helvetica,sans-serif;color:#526357;border-left:3px solid #b56e54;padding:10px 15px;background:#f2f0e9;margin:6px 0}.activation-note a{text-decoration:underline;text-underline-offset:3px}
     .privacy-note,.social-note{font:12px/1.65 Arial,Helvetica,sans-serif;color:#748075}
     .social-panel{background:#eef0e9;padding:30px;height:max-content}
     .social-link{display:flex;align-items:center;gap:14px;border-top:1px solid #d3dbd0;padding:20px 0}
