@@ -43,6 +43,42 @@ const current = Astro.url.pathname;
     .site-footer{background:#243a30;color:#f2f0e8;padding:58px 0 35px}.footer-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:30px}.footer-title{font-size:36px;letter-spacing:-.06em}.site-footer p{font-size:15px;line-height:1.65;color:#c5d1c7;max-width:630px}.footer-bottom{border-top:1px solid #596d60;margin-top:55px;padding-top:25px;display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap;font:12px Arial;color:#c4d0c6}
     @media(max-width:850px){.wrap{width:min(100% - 40px,1180px)}.header-inner{min-height:72px}.brand{font-size:26px}.menu-toggle{display:block}.desktop-nav{display:none;position:absolute;left:0;right:0;top:72px;background:#f7f6f1;padding:15px 20px 25px;border-bottom:1px solid #d8ded5;flex-direction:column;align-items:stretch;gap:0}.desktop-nav.open{display:flex}.desktop-nav a{display:block;padding:14px 0;border-bottom:1px solid #e2e7df}.desktop-nav .lang{border-left:0;padding:14px 0}.hero{padding:65px 0 47px}.cards{grid-template-columns:1fr}.card{min-height:unset}.card h3{margin-top:20px}.article-row{grid-template-columns:1fr;gap:12px}.footer-grid{grid-template-columns:1fr}}
     @media(max-width:540px){.wrap{width:calc(100% - 34px)}.hero h1{font-size:clamp(46px,12vw,65px)}.stats{gap:10px;padding-bottom:38px}.stat strong{font-size:39px}.stat span{font-size:11px}.content-band{padding:65px 0}.section-head{display:block}.text-link{display:inline-block;margin:0 0 18px}.page-intro{padding:65px 0 48px}.page-intro h1{font-size:47px}.article-list{padding-bottom:65px}.site-footer{padding-top:46px}}
+
+    /* Unified editorial type scale and responsive rhythm */
+    .header-inner{min-height:76px;gap:24px}
+    .brand{font-size:27px;letter-spacing:-.052em;white-space:nowrap}
+    .desktop-nav{gap:clamp(12px,1.6vw,23px)}
+    .nav{font-size:13px;letter-spacing:0;line-height:1.4}
+    .eyebrow,.kicker{font-size:12px;letter-spacing:.10em;line-height:1.5}
+    .hero{padding:78px 0 60px}
+    .hero h1{font-size:clamp(48px,6vw,82px);line-height:1.09;letter-spacing:-.047em;margin:20px 0 22px}
+    .lead{font-size:clamp(18px,1.9vw,22px);line-height:1.62}
+    .page-intro{padding:65px 0 42px}
+    .page-intro h1{font-size:clamp(40px,5vw,66px);line-height:1.12;letter-spacing:-.04em;margin:15px 0 16px;max-width:960px}
+    .page-intro p{font-size:clamp(17px,1.65vw,20px);line-height:1.6;margin:0;max-width:780px}
+    .content-band{padding:65px 0}
+    .section-head h2{font-size:clamp(30px,3.5vw,46px);line-height:1.18;letter-spacing:-.035em}
+    .card h3{font-size:clamp(23px,2.2vw,29px);margin-top:28px}
+    .article-list{padding:28px 0 75px}
+    .article-row{padding:26px 0;gap:28px}
+    .article-row h2{font-size:clamp(24px,2.5vw,33px)}
+    .article-row p{font-size:17px;line-height:1.65}
+    @media(max-width:850px){
+      .header-inner{min-height:68px}
+      .desktop-nav{top:68px}
+      .nav{font-size:15px}
+      .hero{padding:56px 0 44px}
+      .page-intro{padding:52px 0 35px}
+      .article-row{gap:9px}
+    }
+    @media(max-width:540px){
+      .hero h1{font-size:clamp(42px,10vw,55px)}
+      .page-intro{padding:42px 0 28px}
+      .page-intro h1{font-size:clamp(36px,9vw,46px)}
+      .page-intro p{font-size:17px}
+      .content-band{padding:52px 0}
+      .article-list{padding-bottom:55px}
+    }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   </style>
 </head>
