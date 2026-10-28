@@ -1,0 +1,14 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { sections } from '../data/site.js';
+export function getStaticPaths(){return Object.entries(sections).map(([slug,data])=>({params:{slug},props:{data}}));}
+const {data}=Astro.props;
+---
+<SiteLayout title={data.title} description={data.intro}>
+  <div class="wrap">
+    <section class="page-intro"><div class="eyebrow">{data.eyebrow}</div><h1>{data.title}</h1><p>{data.intro}</p></section>
+    <div class="article-list">
+      {data.blocks.map(block=><section class="article-row"><h2>{block.heading}</h2><p>{block.text}</p></section>)}
+    </div>
+  </div>
+</SiteLayout>
