@@ -81,6 +81,12 @@ const isContact = Astro.params.slug === 'iletisim';
     .email-note a{display:block;margin-top:10px;font-size:17px;overflow-wrap:anywhere}
     @media(max-width:800px){.contact-area{grid-template-columns:1fr;gap:35px;padding-top:45px}.social-panel{padding:24px}}
 
+    /* Contact-specific hierarchy: keep page title proportional to form headings */
+    .page-intro{padding:38px 0 28px}
+    .page-intro h1{font-size:clamp(32px,3.3vw,44px);line-height:1.18;letter-spacing:-.025em;margin:12px 0 10px}
+    .page-intro p{font-size:clamp(16px,1.35vw,18px);line-height:1.58;max-width:720px}
+    @media(max-width:800px){.page-intro{padding:32px 0 24px}.page-intro h1{font-size:clamp(31px,5vw,40px)}}
+    @media(max-width:540px){.page-intro{padding:26px 0 20px}.page-intro h1{font-size:clamp(30px,8vw,35px)}.page-intro p{font-size:16px}}
     /* Contact page: compact, balanced form and sidebar */
     .contact-area{grid-template-columns:minmax(0,1.22fr) minmax(280px,.82fr);gap:clamp(26px,4vw,56px);padding:38px 0 75px;align-items:start}
     .contact-form-wrap h2,.social-panel h2{font-size:clamp(27px,2.8vw,36px);line-height:1.18;letter-spacing:-.028em;margin:10px 0 12px}
