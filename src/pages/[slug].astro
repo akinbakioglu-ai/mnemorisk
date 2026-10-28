@@ -3,12 +3,81 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import { sections } from '../data/site.js';
 export function getStaticPaths(){return Object.entries(sections).map(([slug,data])=>({params:{slug},props:{data}}));}
 const {data}=Astro.props;
+const isContact = Astro.params.slug === 'iletisim';
 ---
 <SiteLayout title={data.title} description={data.intro}>
   <div class="wrap">
     <section class="page-intro"><div class="eyebrow">{data.eyebrow}</div><h1>{data.title}</h1><p>{data.intro}</p></section>
-    <div class="article-list">
-      {data.blocks.map(block=><section class="article-row"><h2>{block.heading}</h2><p>{block.text}</p></section>)}
-    </div>
+    {isContact ? (
+      <section class="contact-area">
+        <div class="contact-form-wrap">
+          <div class="eyebrow">MESAJ GÖNDER</div>
+          <h2>Bizimle iletişime geçin.</h2>
+          <p class="contact-intro">Araştırma, akademik iş birlikleri ve proje hakkında sorularınız için formu doldurabilirsiniz.</p>
+          <form action="https://formsubmit.co/mnemorisk@gmail.com" method="POST" class="contact-form">
+            <input type="hidden" name="_subject" value="MNEMORİSK web sitesi iletişim mesajı" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="true" />
+            <input type="text" name="_honey" class="honey-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <label for="contact-name">Ad Soyad</label>
+            <input id="contact-name" type="text" name="name" autocomplete="name" maxlength="100" required />
+            <label for="contact-email">E-posta adresi</label>
+            <input id="contact-email" type="email" name="email" autocomplete="email" maxlength="254" required />
+            <label for="contact-subject">Konu</label>
+            <select id="contact-subject" name="Konu" required>
+              <option value="Araştırma hakkında">Araştırma hakkında</option>
+              <option value="Akademik iş birliği">Akademik iş birliği</option>
+              <option value="Basın ve iletişim">Basın ve iletişim</option>
+              <option value="Diğer">Diğer</option>
+            </select>
+            <label for="contact-message">Mesajınız</label>
+            <textarea id="contact-message" name="message" rows="6" maxlength="5000" required></textarea>
+            <p class="captcha-note"><span aria-hidden="true">⛨</span> Gönderim sırasında FormSubmit'in CAPTCHA doğrulaması kullanılır. Doğrulama tamamlanmadan mesaj gönderilmez.</p>
+            <button class="contact-submit" type="submit">Mesajı gönder <span aria-hidden="true">↗</span></button>
+            <p class="privacy-note">Formu göndererek mesajınızın iletişim amacıyla proje e-posta adresine iletilmesini kabul etmiş olursunuz. Hassas kişisel veya sağlık bilgileri paylaşmayınız.</p>
+          </form>
+        </div>
+        <aside class="social-panel">
+          <div class="eyebrow">SOSYAL MEDYA</div>
+          <h2>Güncel gelişmeleri takip edin.</h2>
+          <a class="social-link" href="https://x.com/home?lang=tr" target="_blank" rel="noopener noreferrer"><span class="social-mark">𝕏</span><span><strong>X</strong><small>Proje hesabı</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
+          <a class="social-link" href="https://www.instagram.com/?hl=tr" target="_blank" rel="noopener noreferrer"><span class="social-mark">◎</span><span><strong>Instagram</strong><small>Proje hesabı</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
+          <p class="social-note">Proje hesapları açıldığında bu bağlantıları doğrudan Mnemorisk profillerine yönlendirebilirsiniz.</p>
+          <div class="email-note"><span class="eyebrow">E-POSTA</span><a href="mailto:mnemorisk@gmail.com">mnemorisk@gmail.com</a></div>
+        </aside>
+      </section>
+    ) : (
+      <div class="article-list">
+        {data.blocks.map(block=><section class="article-row"><h2>{block.heading}</h2><p>{block.text}</p></section>)}
+      </div>
+    )}
   </div>
+  <style>
+    .contact-area{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.8fr);gap:70px;padding:65px 0 110px}
+    .contact-form-wrap h2,.social-panel h2{font-size:clamp(30px,3.5vw,45px);font-weight:normal;letter-spacing:-.04em;line-height:1.15;margin:15px 0}
+    .contact-intro{font-size:17px;line-height:1.7;color:#5d6c60;max-width:590px}
+    .contact-form{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+    .contact-form label{font:12px Arial,Helvetica,sans-serif;color:#405448;margin-top:9px}
+    .contact-form input:not([type=hidden]),.contact-form select,.contact-form textarea{width:100%;border:1px solid #cbd4ca;background:#fbfbf7;border-radius:0;padding:14px 15px;font:16px Arial,Helvetica,sans-serif;color:#243029}
+    .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline:2px solid #7b9382;outline-offset:1px}
+    .contact-form textarea{resize:vertical;min-height:150px}
+    .honey-field{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0!important}
+    .captcha-note{font:13px/1.6 Arial,Helvetica,sans-serif;color:#536a59;background:#e8ebe3;padding:14px 16px;margin:12px 0 5px}
+    .captcha-note span{font-size:19px;margin-right:8px}
+    .contact-submit{display:flex;justify-content:space-between;align-items:center;gap:25px;border:0;background:#2b4235;color:#fff;padding:17px 20px;font:13px Arial,Helvetica,sans-serif;cursor:pointer;text-align:left}
+    .contact-submit:hover{background:#42614b}
+    .privacy-note,.social-note{font:12px/1.65 Arial,Helvetica,sans-serif;color:#748075}
+    .social-panel{background:#eef0e9;padding:30px;height:max-content}
+    .social-link{display:flex;align-items:center;gap:14px;border-top:1px solid #d3dbd0;padding:20px 0}
+    .social-link:last-of-type{border-bottom:1px solid #d3dbd0}
+    .social-mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid #c5d0c4;border-radius:50%;font:22px Arial,sans-serif}
+    .social-link strong,.social-link small{display:block}
+    .social-link strong{font-size:18px;font-weight:normal}
+    .social-link small{font:12px Arial,sans-serif;color:#718074;margin-top:4px}
+    .social-arrow{margin-left:auto;color:#718074}
+    .social-link:hover strong{color:#a05a46}
+    .email-note{border-top:1px solid #d3dbd0;margin-top:28px;padding-top:22px}
+    .email-note a{display:block;margin-top:10px;font-size:17px;overflow-wrap:anywhere}
+    @media(max-width:800px){.contact-area{grid-template-columns:1fr;gap:35px;padding-top:45px}.social-panel{padding:24px}}
+  </style>
 </SiteLayout>
