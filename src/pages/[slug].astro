@@ -32,9 +32,8 @@ const isContact = Astro.params.slug === 'iletisim';
             </select>
             <label for="contact-message">Mesajınız</label>
             <textarea id="contact-message" name="message" rows="6" maxlength="5000" required></textarea>
-            <p class="captcha-note"><span aria-hidden="true">⛨</span> Gönderim sırasında otomatik robot kontrolü (reCAPTCHA) uygulanır. Formun çalışması için proje e-posta adresinin FormSubmit üzerinden bir kez etkinleştirilmiş olması gerekir.</p>
+            <p class="captcha-note"><span aria-hidden="true">⛨</span> Mesajı gönderirken otomatik robot doğrulaması yapılabilir.</p>
             <button class="contact-submit" type="submit">Mesajı gönder <span aria-hidden="true">↗</span></button>
-            <p class="activation-note"><strong>Form etkinleştirme notu:</strong> İlk kullanımda FormSubmit, mnemorisk@gmail.com adresine bir defalık etkinleştirme bağlantısı gönderir. Bu bağlantı onaylanana kadar mesajlar teslim edilmeyebilir. Bu e-posta ziyaretçiye değil, proje posta kutusuna gönderilir. E-posta ulaşmadıysa spam klasörünü kontrol edin veya <a href="https://formsubmit.co/help" target="_blank" rel="noopener noreferrer">FormSubmit yardım sayfasına</a> bakın.</p>
             <p class="privacy-note">Formu göndererek mesajınızın iletişim amacıyla proje e-posta adresine iletilmesini kabul etmiş olursunuz. Hassas kişisel veya sağlık bilgileri paylaşmayınız.</p>
           </form>
         </div>
@@ -43,7 +42,7 @@ const isContact = Astro.params.slug === 'iletisim';
           <h2>Güncel gelişmeleri takip edin.</h2>
           <a class="social-link" href="https://x.com/mnemorisk" target="_blank" rel="noopener noreferrer"><span class="social-mark">𝕏</span><span><strong>X</strong><small>@mnemorisk · x.com/mnemorisk</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
           <a class="social-link" href="https://www.instagram.com/mnemorisk/" target="_blank" rel="noopener noreferrer"><span class="social-mark">◎</span><span><strong>Instagram</strong><small>@mnemorisk · instagram.com/mnemorisk</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
-          <p class="social-note">Bağlantılar @mnemorisk kullanıcı adına yönlendirilir. Hesaplar henüz oluşturulmadıysa veya kullanıcı adı başka birine aitse profil açılamayabilir.</p>
+          <p class="social-note">MNEMORİSK'in güncel duyurularını sosyal medya hesaplarımızdan takip edebilirsiniz.</p>
           <div class="email-note"><span class="eyebrow">E-POSTA</span><a href="mailto:mnemorisk@gmail.com">mnemorisk@gmail.com</a></div>
         </aside>
       </section>
@@ -81,5 +80,28 @@ const isContact = Astro.params.slug === 'iletisim';
     .email-note{border-top:1px solid #d3dbd0;margin-top:28px;padding-top:22px}
     .email-note a{display:block;margin-top:10px;font-size:17px;overflow-wrap:anywhere}
     @media(max-width:800px){.contact-area{grid-template-columns:1fr;gap:35px;padding-top:45px}.social-panel{padding:24px}}
+
+    /* Contact page: compact, balanced form and sidebar */
+    .contact-area{grid-template-columns:minmax(0,1.22fr) minmax(280px,.82fr);gap:clamp(26px,4vw,56px);padding:38px 0 75px;align-items:start}
+    .contact-form-wrap h2,.social-panel h2{font-size:clamp(27px,2.8vw,36px);line-height:1.18;letter-spacing:-.028em;margin:10px 0 12px}
+    .contact-intro{font-size:16px;line-height:1.58;margin:0}
+    .contact-form{gap:0;margin-top:20px}
+    .contact-form label{font-size:13px;margin:13px 0 6px}
+    .contact-form input:not([type=hidden]),.contact-form select,.contact-form textarea{padding:11px 13px;line-height:1.4;font-size:16px}
+    .contact-form textarea{min-height:115px}
+    .captcha-note{font-size:12px;line-height:1.5;background:transparent;padding:0;margin:14px 0 10px}
+    .captcha-note span{font-size:15px;margin-right:5px}
+    .contact-submit{padding:14px 17px;font-size:14px;min-height:46px}
+    .privacy-note{margin:12px 0 0;font-size:12px;line-height:1.5}
+    .social-panel{padding:25px}
+    .social-link{gap:12px;padding:15px 0}
+    .social-mark{width:38px;height:38px;font-size:20px;flex-shrink:0}
+    .social-link strong{font-size:17px}
+    .social-link small{font-size:12px;overflow-wrap:anywhere}
+    .social-note{margin:14px 0;font-size:12px}
+    .email-note{margin-top:18px;padding-top:17px}
+    .email-note a{font-size:16px}
+    @media(max-width:800px){.contact-area{grid-template-columns:1fr;gap:28px;padding:30px 0 60px}.social-panel{padding:22px}}
+    @media(max-width:540px){.contact-area{padding:26px 0 48px}.contact-form-wrap h2,.social-panel h2{font-size:29px}.social-panel{padding:18px}.contact-form textarea{min-height:120px}}
   </style>
 </SiteLayout>
