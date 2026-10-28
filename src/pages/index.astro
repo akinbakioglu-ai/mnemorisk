@@ -1,0 +1,50 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { href } from '../data/site.js';
+---
+<SiteLayout>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">ERZİNCAN / TOPLUMSAL HAFIZA / AFET RİSKİ</div>
+      <h1>Bir kent depremleri nasıl <span>hatırlar?</span></h1>
+      <p class="lead">MNEMORİSK, deprem hafızasının kuşaklar arasında nasıl aktarıldığını ve bugünün risk algısını, hazırlık davranışlarını ve yaşanılan yere bağlılığı nasıl biçimlendirdiğini araştırıyor.</p>
+      <a class="button" href={href('proje/')}>Projeyi keşfet <span aria-hidden="true">↗</span></a>
+    </section>
+    <div class="hero-art" role="img" aria-label="Kentin katmanlarını ve hafıza izlerini simgeleyen soyut çizgisel görselleştirme">
+      <svg viewBox="0 0 1100 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="1100" height="440" fill="#dce0d6"/>
+        <g fill="none" stroke="#506c59" stroke-width="1.1" opacity=".6">
+          {Array.from({length:22},(_,i)=><path d={`M -20 ${i*24-40} Q 300 ${(i*19)%420-40} 570 ${i*18-70} T 1130 ${i*26-120}`} />)}
+        </g>
+        <g fill="none" stroke="#b56e54" stroke-width="2" opacity=".85">
+          <path d="M 0 305 L 165 268 L 272 290 L 355 179 L 460 205 L 547 132 L 677 192 L 752 120 L 868 168 L 980 101 L 1100 115"/>
+        </g>
+        <circle cx="547" cy="132" r="7" fill="#b56e54"/><circle cx="752" cy="120" r="7" fill="#b56e54"/>
+        <g fill="#40574a" opacity=".16">{Array.from({length:10},(_,i)=><circle cx={80+i*100} cy={310+(i%3)*25} r={10+i%4*7}/>)}</g>
+      </svg>
+      <span class="art-label">HAFIZA · MEKÂN · RİSK</span>
+    </div>
+    <div class="stats" aria-label="Araştırma ölçeği">
+      <div class="stat"><strong>85</strong><span>Mahalle</span></div>
+      <div class="stat"><strong>1.093</strong><span>Planlanan hane anketi</span></div>
+      <div class="stat"><strong>03</strong><span>Araştırma aşaması</span></div>
+    </div>
+    <section class="content-band">
+      <div class="section-head"><div><div class="eyebrow">ARAŞTIRMA SORUSU</div><h2>Aynı kentte yaşamak, aynı riski hissetmek anlamına mı gelir?</h2></div><a class="text-link" href={href('proje/')}>Proje hakkında ↗</a></div>
+      <p class="lead">1939 ve 1992 depremlerini yaşayanlar, bu deneyimi aile anlatılarıyla devralanlar ve kente daha sonra gelenler, aynı mekânla farklı hafıza ilişkileri kuruyor. Bu farklılıkları anlamak, afet hazırlığını da yeniden düşünmemizi sağlıyor.</p>
+    </section>
+    <section class="content-band">
+      <div class="section-head"><div><div class="eyebrow">YÖNTEM</div><h2>Hafızadan haritaya: üç aşamalı bir araştırma.</h2></div><a class="text-link" href={href('arastirma/')}>Araştırma tasarımı ↗</a></div>
+      <div class="cards">
+        <div class="card"><div class="index">01 / NİCEL</div><h3>Hane araştırması</h3><p>Deprem deneyimi, aktarılan anlatılar, risk algısı, yere bağlılık ve hazırlık davranışları.</p></div>
+        <div class="card"><div class="index">02 / NİTEL</div><h3>Görüşmeler</h3><p>Deprem tanıkları, aile hafızasını taşıyanlar ve yerel aktörlerle derinlemesine görüşmeler.</p></div>
+        <div class="card"><div class="index">03 / MEKÂNSAL</div><h3>Haritalama</h3><p>Toplumsal göstergelerin fiziksel verilerle birleştirilerek mahalle ölçeğinde yorumlanması.</p></div>
+      </div>
+    </section>
+    <section class="content-band">
+      <div class="section-head"><div><div class="eyebrow">BEKLENEN ÇIKTILAR</div><h2>Afet planlamasına toplumsal hafızayı eklemek.</h2></div><a class="text-link" href={href('haritalar/')}>Haritalar ve bulgular ↗</a></div>
+      <p class="lead">Hafıza temelli sosyal zarar görebilirlik haritaları, başka deprem kentlerinde de uygulanabilecek bir ölçme aracı ve yerel afet planlamasına yönelik uygulanabilir öneriler geliştirilmesi hedefleniyor.</p>
+      <p class="notice">Bu web sitesi projenin ön tasarım sürümüdür. Henüz araştırma bulgusu veya mahalle düzeyinde risk sınıflaması yayımlanmamıştır.</p>
+    </section>
+  </div>
+</SiteLayout>
