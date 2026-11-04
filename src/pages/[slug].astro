@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { sections } from '../data/site.js';
-export function getStaticPaths(){return Object.entries(sections).map(([slug,data])=>({params:{slug},props:{data}}));}
+export function getStaticPaths(){return Object.entries(sections).filter(([slug])=>slug !== 'haritalar').map(([slug,data])=>({params:{slug},props:{data}}));}
 const {data}=Astro.props;
 const isContact = Astro.params.slug === 'iletisim';
 ---
@@ -81,6 +81,20 @@ const isContact = Astro.params.slug === 'iletisim';
     .email-note a{display:block;margin-top:10px;font-size:17px;overflow-wrap:anywhere}
     @media(max-width:800px){.contact-area{grid-template-columns:1fr;gap:35px;padding-top:45px}.social-panel{padding:24px}}
 
+    /* Research & Data Lab style for the existing working contact form */
+    .contact-area{grid-template-columns:minmax(0,1.25fr) minmax(270px,.8fr);gap:clamp(24px,4vw,52px)}
+    .contact-form-wrap h2,.social-panel h2{font-family:Arial,Helvetica,sans-serif;font-weight:700;letter-spacing:-.025em;color:#1e4058}
+    .contact-intro{color:#586f81}
+    .contact-form input:not([type=hidden]),.contact-form select,.contact-form textarea{background:#fff;border-color:#cbdce6;border-radius:3px;color:#213e53}
+    .contact-form label{color:#405e72;font-weight:700}
+    .contact-submit{background:#153c54}.contact-submit:hover{background:#265e7d}
+    .social-panel{background:#edf3f7;border:1px solid #d8e5ed}
+    .social-link,.social-link:last-of-type,.email-note{border-color:#cbdbe5}
+    .social-link strong{font-family:Arial,Helvetica,sans-serif;font-weight:700;color:#294b63}
+    .social-link small,.social-note,.privacy-note{color:#657b8b}
+    .social-mark{border-color:#bad0dd;color:#245c7b}
+    .email-note a{color:#245e81}
+    .captcha-note{color:#637c8d}
     /* Contact-specific hierarchy: keep page title proportional to form headings */
     .page-intro{padding:38px 0 28px}
     .page-intro h1{font-size:clamp(32px,3.3vw,44px);line-height:1.18;letter-spacing:-.025em;margin:12px 0 10px}
