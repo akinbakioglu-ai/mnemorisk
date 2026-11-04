@@ -1,0 +1,123 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { href } from '../data/site.js';
+---
+<SiteLayout title="Haritalar ve mekânsal analizler" description="MNEMORİSK mekânsal analiz ve planlanan veri katmanları.">
+  <div class="wrap">
+    <div class="lab-breadcrumb"><a href={href('')}>Ana sayfa</a><span>›</span> Araştırma <span>›</span> Haritalar</div>
+    <header class="lab-heading">
+      <div><div class="eyebrow">MNEMORİSK / VERİ LABORATUVARI</div><h1>Haritalar ve mekânsal analizler</h1><p>Erzincan’da toplumsal hafızanın, risk algısının ve afete hazırlığın mekânsal örüntülerini araştırıyoruz.</p></div>
+      <span class="phase">ARAŞTIRMA SÜRÜYOR</span>
+    </header>
+    <section class="dashboard" aria-label="Mekânsal analiz arayüzü">
+      <aside class="lab-sidebar">
+        <div class="sidebar-head">ARAŞTIRMA BÖLÜMLERİ</div>
+        <a href={href('arastirma/')}>◫ <span>Araştırma yöntemi</span> ↗</a>
+        <a class="selected" aria-current="page" href={href('haritalar/')}>▦ <span>Haritalar</span></a>
+        <a href="#katmanlar">◈ <span>Veri katmanları</span> ↓</a>
+        <a href="#ciktilar">▤ <span>Beklenen çıktılar</span> ↓</a>
+        <a href={href('yayinlar/')}>▧ <span>Yayınlar</span> ↗</a>
+      </aside>
+      <div class="dashboard-center">
+        <div class="map-topbar"><strong>Erzincan · Mekânsal araştırma</strong><span>Ön izleme</span></div>
+        <div class="map-canvas" role="img" aria-label="Mekânsal veri laboratuvarı için tasarlanmış şematik ağ; gerçek mahalle sınırı, fay hattı veya risk haritası değildir.">
+          <svg viewBox="0 0 720 490" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs><pattern id="labgrid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" fill="none" stroke="#cbdbe4" stroke-width="1"/></pattern></defs>
+            <rect width="720" height="490" fill="#eaf2f7"/><rect width="720" height="490" fill="url(#labgrid)"/>
+            <g fill="none" stroke="#9dbacc" stroke-width="1.8" opacity=".75">
+              {Array.from({length:9},(_,i)=><path d={`M -30 ${i*68+10} Q 190 ${i*53-80} 345 ${i*65+8} T 750 ${i*68-40}`}/>)}
+            </g>
+            <g stroke="#fff" stroke-width="3" fill="none"><path d="M50 365L128 248L249 281L315 175L442 203L520 95L670 140"/><path d="M100 58L236 165L365 115L445 287L627 395"/><path d="M79 430L200 334L387 365L535 250L700 289"/></g>
+            <g fill="#5287a5" opacity=".22"><circle cx="249" cy="281" r="72"/><circle cx="442" cy="203" r="96"/><circle cx="520" cy="95" r="45"/></g>
+            <g fill="#2f6787" stroke="#fff" stroke-width="4"><circle cx="128" cy="248" r="9"/><circle cx="315" cy="175" r="9"/><circle cx="445" cy="287" r="9"/><circle cx="627" cy="395" r="9"/></g>
+            <g fill="#c57457" stroke="#fff" stroke-width="3"><circle cx="249" cy="281" r="10"/><circle cx="442" cy="203" r="10"/><circle cx="520" cy="95" r="10"/></g>
+          </svg>
+          <div class="map-stamp">ŞEMATİK ARAYÜZ · ANALİZ VERİSİ İÇERMEZ</div>
+        </div>
+        <div class="map-bottom"><span>Gerçek CBS katmanları araştırma sonuçları doğrulandıktan sonra eklenecek.</span><span>MNEMORİSK</span></div>
+      </div>
+      <aside class="lab-inspector" id="katmanlar">
+        <div class="sidebar-head">PLANLANAN VERİ KATMANLARI</div>
+        <p class="inspector-intro">Hangi göstergelerin değerlendirileceğini inceleyin.</p>
+        <div class="layers" role="group" aria-label="Planlanan katmanların açıklamaları">
+          <button class="layer active" type="button" data-layer="memory" aria-pressed="true"><span class="layer-dot blue"></span>Toplumsal hafıza</button>
+          <button class="layer" type="button" data-layer="risk" aria-pressed="false"><span class="layer-dot orange"></span>Risk algısı</button>
+          <button class="layer" type="button" data-layer="prep" aria-pressed="false"><span class="layer-dot green"></span>Afete hazırlık</button>
+          <button class="layer" type="button" data-layer="physical" aria-pressed="false"><span class="layer-dot gray"></span>Fiziksel göstergeler</button>
+        </div>
+        <div class="layer-detail" aria-live="polite">
+          <span class="detail-kicker">GÖSTERGE AÇIKLAMASI</span>
+          <h2 id="layer-title">Toplumsal hafıza</h2>
+          <p id="layer-description">Doğrudan deprem deneyimi ve kuşaklar arasında aktarılan anlatıların incelenmesi planlanıyor.</p>
+        </div>
+        <p class="data-disclaimer">Buradaki seçimler harita üzerindeki gerçek bir risk katmanını değiştirmez. Henüz mahalle sonuçları yayımlanmadı.</p>
+      </aside>
+    </section>
+    <section id="ciktilar" class="outcomes">
+      <div><span class="eyebrow">ARAŞTIRMA HEDEFLERİ</span><h2>Veriye dayalı, toplumsal hafızayı gözeten afet planlaması.</h2></div>
+      <div class="outcome-list">
+        <div><strong>01</strong><span>Mahalle düzeyinde hafıza temelli sosyal zarar görebilirlik haritası geliştirmek.</span></div>
+        <div><strong>02</strong><span>Başka deprem kentlerinde de kullanılabilecek bir ölçme yaklaşımı geliştirmek.</span></div>
+        <div><strong>03</strong><span>Yerel kurumlar için önceliklendirmeyi destekleyen öneriler üretmek.</span></div>
+      </div>
+    </section>
+  </div>
+  <script>
+    const details = {
+      memory:{title:'Toplumsal hafıza',description:'Doğrudan deprem deneyimi ve kuşaklar arasında aktarılan anlatıların incelenmesi planlanıyor.'},
+      risk:{title:'Risk algısı',description:'Yaşanılan yerin güvenliğine ve olası deprem etkilerine ilişkin öznel değerlendirmeler araştırılacak.'},
+      prep:{title:'Afete hazırlık',description:'Hanelerin hazırlık davranışları, bilgiye erişimi ve harekete geçme imkânları değerlendirilecek.'},
+      physical:{title:'Fiziksel göstergeler',description:'Zemin, fay ve yapı stoku gibi mekânsal veriler, uygun kaynak ve ölçekte sosyal göstergelerle birlikte analiz edilecek.'}
+    };
+    const title=document.querySelector('#layer-title');
+    const description=document.querySelector('#layer-description');
+    document.querySelectorAll('.layer').forEach(button=>button.addEventListener('click',()=>{
+      const item=details[button.dataset.layer];
+      if(!item)return;
+      document.querySelectorAll('.layer').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false')});
+      button.classList.add('active');button.setAttribute('aria-pressed','true');
+      title.textContent=item.title;description.textContent=item.description;
+    }));
+  </script>
+  <style>
+    .lab-breadcrumb{display:flex;gap:11px;align-items:center;padding-top:26px;color:#657d8f;font-size:12px}
+    .lab-breadcrumb a:hover{text-decoration:underline}
+    .lab-heading{display:flex;justify-content:space-between;align-items:end;gap:25px;padding:35px 0 30px}
+    .lab-heading h1{font-size:clamp(32px,3.5vw,47px);line-height:1.15;letter-spacing:-.035em;margin:13px 0}
+    .lab-heading p{font-size:17px;line-height:1.6;color:#5c7081;max-width:760px;margin:0}
+    .phase{border:1px solid #b9cad6;background:#e9f1f6;color:#30617c;font-size:11px;font-weight:700;letter-spacing:.07em;padding:10px 12px;white-space:nowrap}
+    .dashboard{display:grid;grid-template-columns:minmax(160px,.72fr) minmax(0,2.25fr) minmax(220px,.88fr);background:white;border:1px solid #d9e5ec;min-height:490px}
+    .lab-sidebar,.lab-inspector{padding:21px 17px}
+    .lab-sidebar{border-right:1px solid #d9e5ec}
+    .lab-inspector{border-left:1px solid #d9e5ec}
+    .sidebar-head{font-size:11px;letter-spacing:.08em;font-weight:800;color:#6b8294;margin-bottom:19px}
+    .lab-sidebar a{display:flex;gap:12px;align-items:center;font-size:13px;color:#4b6375;padding:12px 10px;margin-bottom:5px}
+    .lab-sidebar a span{flex:1}
+    .lab-sidebar .selected,.lab-sidebar a:hover{background:#e7f0f6;color:#164c6e;font-weight:700}
+    .dashboard-center{display:flex;flex-direction:column;min-width:0;background:#eaf2f7}
+    .map-topbar,.map-bottom{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#fff;padding:15px 17px;font-size:12px;color:#5c7387}
+    .map-topbar strong{font-size:13px;color:#233f55}
+    .map-canvas{flex:1;position:relative;min-height:360px;overflow:hidden}
+    .map-canvas svg{width:100%;height:100%;position:absolute;inset:0}
+    .map-stamp{position:absolute;bottom:14px;left:14px;background:#ffffffee;border:1px solid #d0dfe8;padding:9px;font-size:10px;font-weight:700;color:#456779;letter-spacing:.04em;max-width:calc(100% - 28px)}
+    .map-bottom{border-top:1px solid #d9e5ec;line-height:1.45}
+    .inspector-intro{font-size:13px;line-height:1.6;color:#6c7e8c;margin:0 0 18px}
+    .layers{display:grid;gap:7px}
+    .layer{width:100%;text-align:left;display:flex;align-items:center;gap:9px;cursor:pointer;border:1px solid #e1e8ed;background:white;color:#304a5d;padding:11px 9px;font-size:12px}
+    .layer:hover,.layer.active{background:#e7f0f6;border-color:#aac4d4}
+    .layer-dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .blue{background:#2a789e}.orange{background:#c57457}.green{background:#4c8f7a}.gray{background:#70808e}
+    .layer-detail{background:#f2f6f8;border:1px solid #dbe6ec;padding:17px 13px;margin-top:20px}
+    .detail-kicker{font-size:10px;color:#6a8495;font-weight:800;letter-spacing:.08em}
+    .layer-detail h2{font-size:17px;margin:11px 0 8px}
+    .layer-detail p,.data-disclaimer{font-size:12px;line-height:1.65;color:#5c7181;margin:0}
+    .data-disclaimer{margin-top:16px}
+    .outcomes{display:grid;grid-template-columns:1fr 1fr;gap:55px;padding:75px 0 100px}
+    .outcomes h2{font-size:clamp(27px,3vw,39px);line-height:1.25;letter-spacing:-.035em;margin:13px 0}
+    .outcome-list>div{display:flex;gap:17px;border-bottom:1px solid #dbe5eb;padding:21px 0;font-size:16px;color:#51697b;line-height:1.55}
+    .outcome-list strong{color:#226080}
+    @media(max-width:1050px){.dashboard{grid-template-columns:180px 1fr}.lab-inspector{grid-column:1/-1;border-left:0;border-top:1px solid #d9e5ec}.layers{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){.lab-heading{display:block;padding:27px 0}.phase{display:inline-block;margin-top:16px}.dashboard{display:flex;flex-direction:column}.lab-sidebar{border-right:0;border-bottom:1px solid #d9e5ec}.lab-sidebar a{display:inline-flex;margin:0 6px 6px 0;font-size:12px}.map-canvas{min-height:270px}.map-bottom span:last-child{display:none}.layers{grid-template-columns:1fr 1fr}.outcomes{grid-template-columns:1fr;gap:15px;padding:49px 0 65px}.outcome-list>div{font-size:15px}}
+    @media(max-width:420px){.layers{grid-template-columns:1fr}.lab-heading h1{font-size:31px}}
+  </style>
+</SiteLayout>
