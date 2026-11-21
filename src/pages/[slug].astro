@@ -38,6 +38,15 @@ const isTeam = Astro.params.slug === 'ekip';
             {data.member3.bio.length > 0 && <div class="team-bio">{data.member3.bio.map(paragraph => <p>{paragraph}</p>)}</div>}
           </div>
         </section>
+        <section class="team-profile">
+          <div class="team-photo-wrap"><img class="team-photo" src={data.member4.image} alt={data.member4.name} /></div>
+          <div class="team-content">
+            <div class="eyebrow">{data.member4.role}</div>
+            <h2>{data.member4.name}</h2>
+            <p class="team-institution">{data.member4.institution}</p>
+            {data.member4.bio.length > 0 && <div class="team-bio">{data.member4.bio.map(paragraph => <p>{paragraph}</p>)}</div>}
+          </div>
+        </section>
       </>
     ) : isContact ? (
       <section class="contact-area">
