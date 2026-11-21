@@ -10,15 +10,17 @@ const isTeam = Astro.params.slug === 'ekip';
   <div class="wrap">
     <section class="page-intro"><div class="eyebrow">{data.eyebrow}</div><h1>{data.title}</h1><p>{data.intro}</p></section>
     {isTeam ? (
-      <section class="team-profile">
-        <div class="team-photo-wrap"><img class="team-photo" src={data.member.image} alt="Doç. Dr. Akın Bakioğlu" /></div>
-        <div class="team-content">
-          <div class="eyebrow">{data.member.role}</div>
-          <h2>{data.member.name}</h2>
-          <p class="team-institution">{data.member.institution}</p>
-          <div class="team-bio">{data.member.bio.map(paragraph=><p>{paragraph}</p>)}</div>
-        </div>
-      </section>
+      {[data.member,data.member2].map(member => (
+        <section class="team-profile">
+          <div class="team-photo-wrap"><img class="team-photo" src={member.image} alt={member.name} /></div>
+          <div class="team-content">
+            <div class="eyebrow">{member.role}</div>
+            <h2>{member.name}</h2>
+            <p class="team-institution">{member.institution}</p>
+            {member.bio.length > 0 && <div class="team-bio">{member.bio.map(paragraph=><p>{paragraph}</p>)}</div>}
+          </div>
+        </section>
+      ))}
     ) : isContact ? (
       <section class="contact-area">
         <div class="contact-form-wrap">
