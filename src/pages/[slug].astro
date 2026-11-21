@@ -84,13 +84,13 @@ const isTeam = Astro.params.slug === 'ekip';
     )}
   </div>
   <style>
-    .team-profile{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);gap:clamp(30px,5vw,70px);align-items:start;padding:35px 0 90px}
-    .team-photo-wrap{background:#f3efe7;overflow:hidden}
-    .team-photo{display:block;width:100%;height:auto;object-fit:contain}
+    .team-profile{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:clamp(30px,5vw,70px);align-items:start;padding:35px 0 75px}
+    .team-photo-wrap{width:100%;max-width:300px;background:#f3efe7;overflow:hidden}
+    .team-photo{display:block;width:100%;max-width:300px;height:auto;object-fit:contain}
     .team-content h2{font-size:clamp(30px,3.2vw,42px);line-height:1.18;letter-spacing:-.03em;font-weight:normal;margin:12px 0}
     .team-institution{font:14px/1.7 Arial,Helvetica,sans-serif;color:#63798a;margin:0 0 25px}
     .team-bio p{font-size:16px;line-height:1.85;color:#394d5b;margin:0 0 18px}
-    @media(max-width:760px){.team-profile{grid-template-columns:1fr;gap:26px;padding:25px 0 60px}.team-photo-wrap{max-width:440px}.team-content h2{font-size:32px}}
+    @media(max-width:760px){.team-profile{grid-template-columns:1fr;gap:22px;padding:25px 0 55px}.team-photo-wrap{max-width:260px}.team-photo{max-width:260px}.team-content h2{font-size:32px}}
     .contact-area{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.8fr);gap:70px;padding:65px 0 110px}
     .contact-form-wrap h2,.social-panel h2{font-size:clamp(30px,3.5vw,45px);font-weight:normal;letter-spacing:-.04em;line-height:1.15;margin:15px 0}
     .contact-intro{font-size:17px;line-height:1.7;color:#5d6c60;max-width:590px}
