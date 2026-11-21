@@ -10,7 +10,7 @@ const isTeam = Astro.params.slug === 'ekip';
   <div class="wrap">
     <section class="page-intro"><div class="eyebrow">{data.eyebrow}</div><h1>{data.title}</h1><p>{data.intro}</p></section>
     {isTeam ? (
-      {[data.member,data.member2].map(member => (
+      [data.member,data.member2].map(member => (
         <section class="team-profile">
           <div class="team-photo-wrap"><img class="team-photo" src={member.image} alt={member.name} /></div>
           <div class="team-content">
