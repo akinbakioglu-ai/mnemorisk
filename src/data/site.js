@@ -66,6 +66,13 @@ export const sections = {
     institution:'Fırat Üniversitesi · Coğrafya Bölümü · Yüksek Lisans Öğrencisi',
     image:'/YUSUF%20BULUCU.png',
     bio:['Yusuf Bulucu, Fırat Üniversitesi Coğrafya Bölümü’nde yüksek lisans öğrencisidir. Başta afet riski olmak üzere fiziki ve beşerî coğrafyanın farklı konularında CBS, uzaktan algılama, mekânsal istatistik ve makine öğrenmesi yöntemleriyle çalışmalar yürütmektedir.']
+  },
+  member6:{
+    name:'Sümeyye Turak',
+    role:'Proje Bursiyeri',
+    institution:'Erzincan Binali Yıldırım Üniversitesi · Sosyoloji Bölümü · Yüksek Lisans Öğrencisi',
+    image:'',
+    bio:['Sümeyye Turak Erzincan Binali Yıldırım Üniversitesi Yüksek Lisans öğrencisidir. Çalışmalarını toplumsal hafıza ve afet sosyolojisi alanlarında sürdürmektedir.']
   },blocks:[]},
   iletisim:{eyebrow:'06 / İLETİŞİM',title:'MNEMORİSK ile iletişim.',intro:'Araştırmaya ilişkin sorular, akademik iş birlikleri ve kurumsal talepler için iletişim bilgileri burada yayımlanacak.',blocks:[
     {heading:'İletişim bilgileri hazırlanıyor',text:'Resmî proje e-posta adresi ve uygun iletişim kanalları netleştiğinde bu alan güncellenecek.'},
