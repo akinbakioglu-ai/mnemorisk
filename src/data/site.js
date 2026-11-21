@@ -52,6 +52,13 @@ export const sections = {
     institution:'Marmara Üniversitesi · İnsan ve Toplum Bilimleri Fakültesi · Coğrafya Bölümü',
     image:'/AHMET%20EMRAH%20S%C4%B0YAVU%C5%9E.png',
     bio:[]
+  },
+  member4:{
+    name:'Dr. Öğr. Üyesi İlhan Zeynep Karakılıç',
+    role:'Proje Araştırmacısı',
+    institution:'Bahçeşehir Üniversitesi · Sosyoloji Bölümü',
+    image:'/\u0130LHAN%20ZEYNEP%20KARAKILI%C3%87.png',
+    bio:['İlhan Zeynep Karakılıç Bahçeşehir Üniversitesi Sosyoloji Bölümü’nde doktor öğretim üyesi olarak çalışmaktadır. Çalışma konuları arasında kır sosyolojisi, göç sosyolojisi ve hafıza çalışmaları yer almaktadır.']
   },blocks:[]},
   iletisim:{eyebrow:'06 / İLETİŞİM',title:'MNEMORİSK ile iletişim.',intro:'Araştırmaya ilişkin sorular, akademik iş birlikleri ve kurumsal talepler için iletişim bilgileri burada yayımlanacak.',blocks:[
     {heading:'İletişim bilgileri hazırlanıyor',text:'Resmî proje e-posta adresi ve uygun iletişim kanalları netleştiğinde bu alan güncellenecek.'},
