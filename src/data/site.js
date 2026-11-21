@@ -28,9 +28,17 @@ export const sections = {
     {heading:'Yayın arşivi',text:'İlk araştırma çıktıları hazırlandığında bibliyografik bilgiler, açık erişim bağlantıları ve indirilebilir belgeler eklenecek.'},
     {heading:'Proje günlüğü',text:'Saha çalışması, toplantılar ve kamuya açık etkinliklerle ilgili güncellemeler yayımlanacak.'}
   ]},
-  ekip:{eyebrow:'05 / EKİP',title:'Araştırma ekibi.',intro:'Projenin yürütücüsü, araştırmacıları, bursiyerleri ve iş birliklerine ilişkin bilgiler bu sayfada yer alacak.',blocks:[
-    {heading:'Ekip bilgileri hazırlanıyor',text:'Adlar, görevler, kısa özgeçmişler ve akademik profil bağlantıları doğrulandıktan sonra eklenecek.'}
-  ]},
+  ekip:{eyebrow:'05 / EKİP',title:'Araştırma ekibi.',intro:'MNEMORİSK araştırma ekibinin yürütücüsü ve proje çalışmalarını koordine eden akademik kadro.',member:{
+    name:'Doç. Dr. Akın Bakioğlu',
+    role:'Proje Yürütücüsü',
+    institution:'Erzincan Binali Yıldırım Üniversitesi · Fen-Edebiyat Fakültesi · Sosyoloji Bölümü',
+    image:'/akin-bakioglu.png',
+    bio:[
+      'Akın Bakioğlu, Erzincan Binali Yıldırım Üniversitesi Fen-Edebiyat Fakültesi Sosyoloji Bölümünde öğretim üyesidir. Lisans ve yüksek lisans eğitimini Süleyman Demirel Üniversitesinde, doktora eğitimini ise 2019 yılında Ankara Üniversitesinde tamamlamıştır. Doktora tezinden hareketle hazırladığı Büyük Madenci Yürüyüşü: Zonguldak\'ın Büyük Grevi (1990-1991) adlı kitabı, 2022 yılında İletişim Yayınları tarafından yayımlanmıştır.',
+      'Akademik çalışmaları başta emek ve sınıf sosyolojisi olmak üzere endüstri sosyolojisi, göç, kent sosyolojisi, dijital kapitalizm, platform emeği, toplumsal hafıza ve afet sosyolojisi alanlarında yoğunlaşmaktadır. Araştırmalarında emek süreçlerinin dönüşümü, sınıf ilişkileri, mekânsal eşitsizlikler ve toplumsal değişim arasındaki ilişkileri tarihsel ve eleştirel bir sosyolojik perspektifle ele almaktadır.',
+      '2024-2025 yıllarında TÜBİTAK Yurt Dışı Doktora Sonrası Araştırma Burs Programı desteğiyle Almanya\'daki Eberhard Karls Tübingen Üniversitesi Sosyoloji Bölümü\'nde doktora sonrası araştırmalar yürütmüştür. Bu kapsamda Türkiye kökenli göçmen işçilerin çalışma deneyimleri, emek süreçleri, sınıfsal konumları ve örgütlenme pratikleri üzerine saha araştırmaları gerçekleştirmiştir. Ulusal ve uluslararası akademik çalışmalarını sürdürmekte olup Sosyoloji Derneği Yönetim Kurulu üyesidir.'
+    ]
+  },blocks:[]},
   iletisim:{eyebrow:'06 / İLETİŞİM',title:'MNEMORİSK ile iletişim.',intro:'Araştırmaya ilişkin sorular, akademik iş birlikleri ve kurumsal talepler için iletişim bilgileri burada yayımlanacak.',blocks:[
     {heading:'İletişim bilgileri hazırlanıyor',text:'Resmî proje e-posta adresi ve uygun iletişim kanalları netleştiğinde bu alan güncellenecek.'},
     {heading:'Kurumsal bağlam',text:'Proje Erzincan Binali Yıldırım Üniversitesi bünyesinde yürütülmektedir.'}
