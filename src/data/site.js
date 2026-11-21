@@ -43,7 +43,14 @@ export const sections = {
     name:'Prof. Dr. Müzeyyen Aytül Kasapoğlu',
     role:'Proje Araştırmacısı',
     institution:'Başkent Üniversitesi · Fen-Edebiyat Fakültesi · Sosyoloji Bölümü',
-    image:'/muzeyyen-aytul-kasapoglu.png',
+    image:'/MUZEYYEN%20AYT%C3%9CL%20KASAPO%C4%9ELU.png',
+    bio:[]
+  },
+  member3:{
+    name:'Doç. Dr. Ahmet Emrah Siyavuş',
+    role:'Proje Araştırmacısı',
+    institution:'Marmara Üniversitesi · İnsan ve Toplum Bilimleri Fakültesi · Coğrafya Bölümü',
+    image:'/AHMET%20EMRAH%20S%C4%B0YAVU%C5%9E.png',
     bio:[]
   },blocks:[]},
   iletisim:{eyebrow:'06 / İLETİŞİM',title:'MNEMORİSK ile iletişim.',intro:'Araştırmaya ilişkin sorular, akademik iş birlikleri ve kurumsal talepler için iletişim bilgileri burada yayımlanacak.',blocks:[
