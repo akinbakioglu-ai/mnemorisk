@@ -59,6 +59,13 @@ export const sections = {
     institution:'Bahçeşehir Üniversitesi · Sosyoloji Bölümü',
     image:'/\u0130LHAN%20ZEYNEP%20KARAKILI%C3%87.png',
     bio:['İlhan Zeynep Karakılıç Bahçeşehir Üniversitesi Sosyoloji Bölümü’nde doktor öğretim üyesi olarak çalışmaktadır. Çalışma konuları arasında kır sosyolojisi, göç sosyolojisi ve hafıza çalışmaları yer almaktadır.']
+  },
+  member5:{
+    name:'Yusuf Bulucu',
+    role:'Proje Bursiyeri',
+    institution:'Fırat Üniversitesi · Coğrafya Bölümü · Yüksek Lisans Öğrencisi',
+    image:'/YUSUF%20BULUCU.png',
+    bio:['Yusuf Bulucu, Fırat Üniversitesi Coğrafya Bölümü’nde yüksek lisans öğrencisidir. Başta afet riski olmak üzere fiziki ve beşerî coğrafyanın farklı konularında CBS, uzaktan algılama, mekânsal istatistik ve makine öğrenmesi yöntemleriyle çalışmalar yürütmektedir.']
   },blocks:[]},
   iletisim:{eyebrow:'06 / İLETİŞİM',title:'MNEMORİSK ile iletişim.',intro:'Araştırmaya ilişkin sorular, akademik iş birlikleri ve kurumsal talepler için iletişim bilgileri burada yayımlanacak.',blocks:[
     {heading:'İletişim bilgileri hazırlanıyor',text:'Resmî proje e-posta adresi ve uygun iletişim kanalları netleştiğinde bu alan güncellenecek.'},
