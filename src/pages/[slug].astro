@@ -188,5 +188,17 @@ const isTeam = Astro.params.slug === 'ekip';
     .email-note a{font-size:16px}
     @media(max-width:800px){.contact-area{grid-template-columns:1fr;gap:28px;padding:30px 0 60px}.social-panel{padding:22px}}
     @media(max-width:540px){.contact-area{padding:26px 0 48px}.contact-form-wrap h2,.social-panel h2{font-size:29px}.social-panel{padding:18px}.contact-form textarea{min-height:120px}}
+    /* Metin alanlarında Word'deki iki yana yasla görünümü */
+    .team-content p,
+    .page-intro p,
+    .article-row p,
+    .contact-intro,
+    .captcha-note,
+    .privacy-note,
+    .social-note {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
   </style>
 </SiteLayout>
