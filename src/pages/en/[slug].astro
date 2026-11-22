@@ -1,0 +1,51 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { href } from '../../data/site.js';
+const pages = {
+  project: {title:'About the Project', eyebrow:'01 / PROJECT', heading:'Understanding memory as part of disaster risk.', intro:'MNEMORISK examines how earthquake memories in Erzincan are experienced and transmitted, and how they relate to risk perception, preparedness and place attachment.', blocks:[
+    ['Why memory?', 'The earthquakes of 1939 and 1992 left deep marks on the collective memory of Erzincan. Those who experienced the earthquakes, those who heard family accounts and those who moved to the city later may develop different relationships with these memories. The project explores how these differences shape risk assessments and preparedness.'],
+    ['Research objective', 'MNEMORISK aims to examine disaster vulnerability not only through physical risk parameters and socioeconomic indicators, but also through social and individual factors such as collective memory, personal earthquake experiences and place attachment. Focusing on the urban centre of Erzincan, the research integrates engineering data with perceived-risk data shaped by past disaster experiences and collective memory in a Geographic Information Systems (GIS) environment. It compares the spatial distribution of physical hazard indicators and social risk perceptions and investigates potential mismatches between these dimensions. The findings are expected to contribute to understanding the cognitive and cultural dimensions of disaster vulnerability.'],
+    ['Project details', 'Mnemonic Social Vulnerability: Integrating Collective Memory into Disaster Risk Management and Spatial Modelling in Erzincan, Türkiye. Conducted at Erzincan Binali Yıldırım University and awarded funding under the TÜBİTAK 1001 Programme (Project No. 226K193).']
+  ]},
+  research: {title:'Research Design',eyebrow:'02 / RESEARCH',heading:'A multi-method study of a city’s memory.',intro:'A three-stage research design combining household surveys, in-depth interviews and geographic information systems analysis.',blocks:[
+    ['Methodology', 'MNEMORISK adopts a mixed-methods research design to examine the relationships between disaster risk, collective memory and place attachment through a multi-layered analytical framework. The study follows an explanatory sequential mixed-methods design, bringing quantitative and qualitative evidence together to investigate complex social processes.'],
+    ['01 — Household survey', 'Face-to-face surveys are planned with 1,093 randomly selected households across 85 neighbourhoods in central Erzincan. The questionnaire covers earthquake experience, intergenerational narratives, risk perception, place attachment and preparedness. Quantitative data will be examined using statistical analysis.'],
+    ['02 — In-depth interviews', 'Following the quantitative analysis, qualitative fieldwork will explore the survey findings in greater depth. Interviews will be conducted with earthquake witnesses, people who carry family memories and local stakeholders in selected neighbourhoods. Topics include disaster memory, risk perception, earthquake experience and place attachment.'],
+    ['03 — Spatial modelling', 'Quantitative analyses will examine the factor structure, measurement model and relationships among variables. Qualitative and quantitative findings will then be integrated. Survey and interview findings will be considered alongside engineering data, including ground conditions, fault lines and building stock, in a GIS environment. Spatial layers will be developed to examine patterns of vulnerability, areas of concentration and potential mismatches between physical indicators and perceived risk.']
+  ]},
+  maps: {title:'Maps and Spatial Analysis',eyebrow:'03 / MAPS',heading:'Tracing the spatial dimensions of memory.',intro:'Neighbourhood-level visualisations and methodological notes will be published here as the research progresses.',blocks:[
+    ['Mnemonic social vulnerability', 'The project seeks to examine spatial relationships between physical hazard indicators and collective memory, risk perception and preparedness.'],
+    ['Research outputs', 'No findings, neighbourhood scores or risk classifications are presented at this stage. Verified outputs will be added as data collection and analysis progress.']
+  ]},
+  publications: {title:'Publications and News',eyebrow:'04 / PUBLICATIONS & NEWS',heading:'Research notes and project updates.',intro:'Articles, conference papers, reports, field notes and project announcements will be brought together here.',blocks:[
+    ['Publication archive', 'Bibliographic details, open-access links and downloadable documents will be added as research outputs become available.'],
+    ['Project updates', 'Updates on fieldwork, meetings and public events will be shared in this section.']
+  ]},
+  team: {title:'Research Team',eyebrow:'05 / TEAM',heading:'The people behind the research.',intro:'The academic team and project scholars contributing to MNEMORISK.',blocks:[
+    ['Assoc. Prof. Dr. Akın Bakioğlu — Principal Investigator', 'Department of Sociology, Faculty of Arts and Sciences, Erzincan Binali Yıldırım University. His research interests include labour and class sociology, migration, urban sociology, digital capitalism, platform labour, collective memory and disaster sociology.'],
+    ['Prof. Dr. Müzeyyen Aytül Kasapoğlu — Researcher', 'Başkent University.'],
+    ['Assoc. Prof. Dr. Ahmet Emrah Siyavuş — Researcher', 'Department of Geography, Marmara University.'],
+    ['Assist. Prof. Dr. İlhan Zeynep Karakılıç — Researcher', 'Department of Sociology, Bahçeşehir University. Her research interests include rural sociology, migration and memory studies.'],
+    ['Yusuf Bulucu — Project Scholar', 'Graduate student in Geography, Fırat University.'],
+    ['Sümeyye Turak — Project Scholar', 'Graduate student in Sociology, Erzincan Binali Yıldırım University. Her research interests include collective memory and disaster sociology.']
+  ]},
+  contact: {title:'Contact',eyebrow:'06 / CONTACT',heading:'Get in touch with MNEMORISK.',intro:'For research enquiries, academic collaboration and institutional requests.',blocks:[
+    ['Project correspondence', 'The project contact channels will be published here once the official details are finalised.'],
+    ['Institutional affiliation', 'MNEMORISK is conducted at Erzincan Binali Yıldırım University, Türkiye.']
+  ]}
+};
+export function getStaticPaths() { return Object.keys(pages).map(slug => ({ params: { slug }, props: { page: pages[slug] } })); }
+const { page } = Astro.props;
+---
+<SiteLayout title={page.title} description={page.intro}>
+  <div class="wrap">
+    <header class="page-intro"><span class="eyebrow">{page.eyebrow}</span><h1>{page.heading}</h1><p>{page.intro}</p></header>
+    <section class="article-list">
+      {page.blocks.map((block, i) => <article class="article-row"><div><span class="eyebrow">{String(i + 1).padStart(2,'0')}</span><h2>{block[0]}</h2></div><p>{block[1]}</p></article>)}
+    </section>
+    <p><a class="button" href={href('en/')}>← Back to home</a></p>
+  </div>
+</SiteLayout>
+<style>
+.wrap{width:min(1220px,calc(100% - 64px));margin-inline:auto}.page-intro{padding:55px 0 38px;border-bottom:1px solid #dde5eb}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;color:#4c7290}.page-intro h1{font-size:clamp(34px,3.9vw,51px);line-height:1.15;letter-spacing:-.04em;margin:13px 0 16px}.page-intro p{font-size:clamp(16px,1.45vw,19px);color:#596c7e;line-height:1.55;max-width:790px;margin:0}.article-list{padding:25px 0 60px}.article-row{display:grid;grid-template-columns:minmax(210px,.9fr) 1.7fr;gap:35px;padding:31px 0;border-bottom:1px solid #dde5eb}.article-row h2{font-size:clamp(22px,2.4vw,30px);line-height:1.22;letter-spacing:-.025em;margin:8px 0}.article-row p{font-size:17px;line-height:1.7;color:#526577;margin:0}.button{display:inline-flex;background:#153c54;color:white;padding:14px 20px;font-size:14px;font-weight:700;margin-bottom:65px}@media(max-width:600px){.wrap{width:calc(100% - 32px)}.page-intro{padding:36px 0 28px}.article-row{grid-template-columns:1fr;gap:12px;padding:23px 0}.article-row p{font-size:16px}}
+</style>
