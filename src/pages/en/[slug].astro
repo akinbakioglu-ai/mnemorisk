@@ -1,6 +1,7 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import { href } from '../../data/site.js';
+export function getStaticPaths() {
 const pages = {
   project: {title:'About the Project', eyebrow:'01 / PROJECT', heading:'Understanding memory as part of disaster risk.', intro:'MNEMORISK examines how earthquake memories in Erzincan are experienced and transmitted, and how they relate to risk perception, preparedness and place attachment.', blocks:[
     ['Why memory?', 'The earthquakes of 1939 and 1992 left deep marks on the collective memory of Erzincan. Those who experienced the earthquakes, those who heard family accounts and those who moved to the city later may develop different relationships with these memories. The project explores how these differences shape risk assessments and preparedness.'],
@@ -34,7 +35,8 @@ const pages = {
     ['Institutional affiliation', 'MNEMORISK is conducted at Erzincan Binali Yıldırım University, Türkiye.']
   ]}
 };
-export function getStaticPaths() { return Object.keys(pages).map(slug => ({ params: { slug }, props: { page: pages[slug] } })); }
+return Object.keys(pages).map(slug => ({ params: { slug }, props: { page: pages[slug] } }));
+}
 const { page } = Astro.props;
 ---
 <SiteLayout title={page.title} description={page.intro}>
