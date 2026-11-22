@@ -42,7 +42,7 @@ const isContact = Astro.params.slug === 'contact';
 ---
 <SiteLayout title={page.title} description={page.intro}>
   <div class="wrap">
-    <header class="page-intro"><span class="eyebrow">{page.eyebrow}</span><h1>{page.heading}</h1><p>{page.intro}</p></header>
+    <section class="page-intro"><div class="eyebrow">{page.eyebrow}</div><h1>{page.heading}</h1><p>{page.intro}</p></section>
     {isContact ? (
       <section class="contact-area">
         <div class="contact-form-wrap">
