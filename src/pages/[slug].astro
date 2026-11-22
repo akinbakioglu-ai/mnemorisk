@@ -70,14 +70,16 @@ const isTeam = Astro.params.slug === 'ekip';
         </aside>
       </section>
     ) : (
-      <div class="article-list">
-        {data.blocks.map(block=><section class="article-row"><h2>{block.heading}</h2><p>{block.text}</p></section>)}
-      </div>
-      {Astro.params.slug === 'arastirma' && (
-        <div class="research-note">
-          Not: Creswell, J. W. &amp; Plano Clark, V. L. (2017). <em>Designing and Conducting Mixed Methods Research</em> (3rd ed.). SAGE Publications.
+      <>
+        <div class="article-list">
+          {data.blocks.map(block=><section class="article-row"><h2>{block.heading}</h2><p>{block.text}</p></section>)}
         </div>
-      )}
+        {Astro.params.slug === 'arastirma' && (
+          <div class="research-note">
+            Not: Creswell, J. W. &amp; Plano Clark, V. L. (2017). <em>Designing and Conducting Mixed Methods Research</em> (3rd ed.). SAGE Publications.
+          </div>
+        )}
+      </>
     )}
   </div>
   <style>
