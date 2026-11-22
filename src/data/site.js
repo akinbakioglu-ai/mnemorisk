@@ -70,7 +70,7 @@ export const sections = {
   member6:{
     name:'Sümeyye Turak',
     role:'Proje Bursiyeri',
-    institution:'Erzincan Binali Yıldırım Üniversitesi · Sosyoloji Bölümü · Yüksek Lisans Öğrencisi',
+    institution:'Erzincan Binali Yıldırım Üniversitesi · Sosyoloji Bölümü · Sosyoloji Yüksek Lisans Öğrencisi',
     image:'/S%C3%9CMEYYE%20TURAK.png',
     bio:['Sümeyye Turak Erzincan Binali Yıldırım Üniversitesi Yüksek Lisans öğrencisidir. Çalışmalarını toplumsal hafıza ve afet sosyolojisi alanlarında sürdürmektedir.']
   },blocks:[]},
