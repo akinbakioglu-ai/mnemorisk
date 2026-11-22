@@ -63,7 +63,7 @@ export const sections = {
   member5:{
     name:'Yusuf Bulucu',
     role:'Proje Bursiyeri',
-    institution:'Fırat Üniversitesi · Coğrafya Bölümü · Yüksek Lisans Öğrencisi',
+    institution:'Fırat Üniversitesi · Coğrafya Bölümü · Coğrafya Yüksek Lisans Öğrencisi',
     image:'/YUSUF%20BULUCU.png',
     bio:['Yusuf Bulucu, Fırat Üniversitesi Coğrafya Bölümü’nde yüksek lisans öğrencisidir. Başta afet riski olmak üzere fiziki ve beşerî coğrafyanın farklı konularında CBS, uzaktan algılama, mekânsal istatistik ve makine öğrenmesi yöntemleriyle çalışmalar yürütmektedir.']
   },
