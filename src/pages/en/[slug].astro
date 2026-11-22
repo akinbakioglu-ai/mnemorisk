@@ -18,7 +18,7 @@ const pages = {
     ['Publication archive', 'Bibliographic details, open-access links and downloadable documents will be added as research outputs become available.'],
     ['Project updates', 'Updates on fieldwork, meetings and public events will be shared in this section.']
   ]},
-  team: {title:'Research Team',eyebrow:'05 / TEAM',heading:'The people behind the research.',intro:'The academic team and project scholars contributing to MNEMORISK.',members:[
+  team: {title:'Research Team',eyebrow:'05 / TEAM',heading:'Research team.',intro:'The academic team and project scholars contributing to MNEMORISK.',members:[
     {name:'Assoc. Prof. Dr. Akın Bakioğlu',role:'Principal Investigator',institution:'Department of Sociology, Faculty of Arts and Sciences, Erzincan Binali Yıldırım University',image:'/akin-bakioglu.png',bio:'His research interests include labour and class sociology, industrial sociology, migration, urban sociology, digital capitalism, platform labour, collective memory and disaster sociology.'},
     {name:'Prof. Dr. Müzeyyen Aytül Kasapoğlu',role:'Researcher',institution:'Başkent University',image:'/MUZEYYEN%20AYT%C3%9CL%20KASAPO%C4%9ELU.png',bio:''},
     {name:'Assoc. Prof. Dr. Ahmet Emrah Siyavuş',role:'Researcher',institution:'Department of Geography, Faculty of Humanities and Social Sciences, Marmara University',image:'/AHMET%20EMRAH%20S%C4%B0YAVU%C5%9E.png',bio:''},
@@ -37,7 +37,7 @@ const { page } = Astro.props;
 ---
 <SiteLayout title={page.title} description={page.intro}>
   <div class="wrap">
-    <header class="page-intro"><span class="eyebrow">{page.eyebrow}</span><h1>{page.title}</h1><p>{page.intro}</p></header>
+    <header class="page-intro"><span class="eyebrow">{page.eyebrow}</span><h1>{page.heading}</h1><p>{page.intro}</p></header>
     {page.members ? (
       <section class="team-grid" aria-label="MNEMORISK research team">
         {page.members.map((member) => <details class="team-card">
