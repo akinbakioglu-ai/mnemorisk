@@ -8,6 +8,14 @@ export const menu = [
   {label:'Ekip',path:'ekip/'},
   {label:'İletişim',path:'iletisim/'}
 ];
+export const menuEn = [
+  {label:'Project',path:'project/'},
+  {label:'Research',path:'research/'},
+  {label:'Maps',path:'maps/'},
+  {label:'Publications & News',path:'publications/'},
+  {label:'Team',path:'team/'},
+  {label:'Contact',path:'contact/'}
+];
 export const sections = {
   proje:{eyebrow:'01 / PROJE',title:'Hafızayı afet riskinin bir parçası olarak düşünmek.',intro:'MNEMORİSK, Erzincan’da deprem hafızasının yaşanma ve aktarılma biçimlerini; risk algısı, afete hazırlık ve mekâna bağlılık ile ilişkisi içinde inceliyor.',blocks:[
     {heading:'Neden hafıza?',text:'1939 ve 1992 depremleri Erzincan’ın toplumsal hafızasında derin izler bıraktı. Depremi yaşamış olanlar, ailelerinden dinleyenler ve kente sonradan gelenler aynı yerde farklı hafıza ilişkileri kuruyor. Araştırma, bu farklılıkların risk değerlendirmelerini ve hazırlık davranışlarını nasıl etkilediğini ele alıyor.'},
