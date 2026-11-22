@@ -19,8 +19,12 @@ const pages = {
     ['Project updates', 'Updates on fieldwork, meetings and public events will be shared in this section.']
   ]},
   team: {title:'Research Team',eyebrow:'05 / TEAM',heading:'Research team.',intro:'The academic team and project scholars contributing to MNEMORISK.',members:[
-    {name:'Assoc. Prof. Dr. Akın Bakioğlu',role:'Principal Investigator',institution:'Department of Sociology, Faculty of Arts and Sciences, Erzincan Binali Yıldırım University',image:'/akin-bakioglu.png',bio:'His research interests include labour and class sociology, industrial sociology, migration, urban sociology, digital capitalism, platform labour, collective memory and disaster sociology.'},
-    {name:'Prof. Dr. Müzeyyen Aytül Kasapoğlu',role:'Researcher',institution:'Başkent University',image:'/MUZEYYEN%20AYT%C3%9CL%20KASAPO%C4%9ELU.png',bio:''},
+    {name:'Assoc. Prof. Dr. Akın Bakioğlu',role:'Principal Investigator',institution:'Department of Sociology, Faculty of Arts and Sciences, Erzincan Binali Yıldırım University',image:'/akin-bakioglu.png',bio:[
+      'Akın Bakioğlu is a faculty member in the Department of Sociology at the Faculty of Arts and Sciences, Erzincan Binali Yıldırım University. He completed his undergraduate and master’s degrees at Süleyman Demirel University and his PhD at Ankara University in 2019. Based on his doctoral dissertation, his book Büyük Madenci Yürüyüşü: Zonguldak’ın Büyük Grevi (1990–1991) was published by İletişim Publications in 2022.',
+      'His academic work focuses primarily on the sociology of labour and class, as well as industrial sociology, migration, urban sociology, digital capitalism, platform labour, collective memory and disaster sociology. From a historical and critical sociological perspective, his research examines the relationships between the transformation of labour processes, class relations, spatial inequalities and social change.',
+      'In 2024–2025, he conducted postdoctoral research in the Department of Sociology at the University of Tübingen, Germany, with support from the TÜBİTAK Postdoctoral Research Fellowship Programme. His fieldwork examined the working experiences, labour processes, class positions and organisational practices of workers of Turkish origin in Germany. He continues his national and international academic work and is a member of the Executive Board of the Turkish Sociological Association.'
+    ]},
+    {name:'Prof. Dr. Müzeyyen Aytül Kasapoğlu',role:'Researcher',institution:'Department of Sociology, Faculty of Arts and Sciences, Başkent University',image:'/MUZEYYEN%20AYT%C3%9CL%20KASAPO%C4%9ELU.png',bio:''},
     {name:'Assoc. Prof. Dr. Ahmet Emrah Siyavuş',role:'Researcher',institution:'Department of Geography, Faculty of Humanities and Social Sciences, Marmara University',image:'/AHMET%20EMRAH%20S%C4%B0YAVU%C5%9E.png',bio:''},
     {name:'Assist. Prof. Dr. İlhan Zeynep Karakılıç',role:'Researcher',institution:'Department of Sociology, Bahçeşehir University',image:'/%C4%B0LHAN%20ZEYNEP%20KARAKILI%C3%87.png',bio:'Her research interests include rural sociology, migration sociology and memory studies.'},
     {name:'Yusuf Bulucu',role:'Project Scholar',institution:'Graduate student in Geography, Fırat University',image:'/YUSUF%20BULUCU.png',bio:'His research interests include disaster risk, GIS, remote sensing, spatial statistics and machine learning.'},
@@ -52,7 +56,7 @@ const { page } = Astro.props;
             </div>
           </summary>
           {member.bio && (
-            <div class="team-bio"><p>{member.bio}</p></div>
+            <div class="team-bio">{Array.isArray(member.bio) ? member.bio.map(paragraph => <p>{paragraph}</p>) : <p>{member.bio}</p>}</div>
           )}
         </details>)}
       </section>
