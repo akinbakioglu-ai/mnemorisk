@@ -14,10 +14,6 @@ const pages = {
     ['02 — In-depth interviews', 'Following the quantitative analysis, qualitative fieldwork will explore the survey findings in greater depth. Interviews will be conducted with earthquake witnesses, people who carry family memories and local stakeholders in selected neighbourhoods. Topics include disaster memory, risk perception, earthquake experience and place attachment.'],
     ['03 — Spatial modelling', 'Quantitative analyses will examine the factor structure, measurement model and relationships among variables. Qualitative and quantitative findings will then be integrated. Survey and interview findings will be considered alongside engineering data, including ground conditions, fault lines and building stock, in a GIS environment. Spatial layers will be developed to examine patterns of vulnerability, areas of concentration and potential mismatches between physical indicators and perceived risk.']
   ]},
-  maps: {title:'Maps and Spatial Analysis',eyebrow:'03 / MAPS',heading:'Tracing the spatial dimensions of memory.',intro:'Neighbourhood-level visualisations and methodological notes will be published here as the research progresses.',blocks:[
-    ['Mnemonic social vulnerability', 'The project seeks to examine spatial relationships between physical hazard indicators and collective memory, risk perception and preparedness.'],
-    ['Research outputs', 'No findings, neighbourhood scores or risk classifications are presented at this stage. Verified outputs will be added as data collection and analysis progress.']
-  ]},
   publications: {title:'Publications and News',eyebrow:'04 / PUBLICATIONS & NEWS',heading:'Research notes and project updates.',intro:'Articles, conference papers, reports, field notes and project announcements will be brought together here.',blocks:[
     ['Publication archive', 'Bibliographic details, open-access links and downloadable documents will be added as research outputs become available.'],
     ['Project updates', 'Updates on fieldwork, meetings and public events will be shared in this section.']
@@ -41,7 +37,7 @@ const { page } = Astro.props;
 ---
 <SiteLayout title={page.title} description={page.intro}>
   <div class="wrap">
-    <header class="page-intro"><span class="eyebrow">{page.eyebrow}</span><h1>{page.heading}</h1><p>{page.intro}</p></header>
+    <header class="page-intro"><span class="eyebrow">{page.eyebrow}</span><h1>{page.title}</h1><p>{page.intro}</p></header>
     {page.members ? (
       <section class="team-grid" aria-label="MNEMORISK research team">
         {page.members.map((member) => <details class="team-card">
@@ -61,11 +57,10 @@ const { page } = Astro.props;
         </details>)}
       </section>
     ) : (
-      <section class="article-list">
-        {page.blocks.map((block, i) => <article class="article-row"><div><span class="eyebrow">{String(i + 1).padStart(2,'0')}</span><h2>{block[0]}</h2></div><p>{block[1]}</p></article>)}
-      </section>
+      <div class="article-list">
+        {page.blocks.map((block) => <section class="article-row"><h2>{block[0]}</h2><p>{block[1]}</p></section>)}
+      </div>
     )}
-    <p><a class="button" href={href('en/')}>← Back to home</a></p>
   </div>
 </SiteLayout>
 <style>
