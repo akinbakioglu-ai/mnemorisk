@@ -1,7 +1,10 @@
 ---
-import { href, menu } from '../data/site.js';
+import { href, menu, menuEn } from '../data/site.js';
 const { title='MNEMORİSK', description='Erzincan’da deprem hafızası, risk algısı ve sosyal zarar görebilirlik üzerine araştırma.' } = Astro.props;
 const current = Astro.url.pathname;
+const activeMenu = isEnglish ? menuEn : menu;
+const languageTarget = isEnglish ? href(current.replace(/^\/en\/?/, '')) : href(`en/${current.replace(/^\//, '')}`);
+const languageLabel = isEnglish ? 'TR' : 'EN';
 const isEnglish = /\/en(?:\/|$)/.test(current);
 const projectSubtitle = isEnglish
   ? 'Mnemonic Social Vulnerability: Integrating Collective Memory into Disaster Risk Management and Spatial Modelling in Erzincan, Türkiye'
@@ -98,14 +101,14 @@ img,svg{max-width:100%}
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main">İçeriğe geç</a>
+<a class="skip-link" href="#main">{isEnglish ? 'Skip to content' : 'İçeriğe geç'}</a>
 <header class="site-header">
  <div class="wrap header-inner">
-  <a class="brand-group" href={href('')} aria-label="MNEMORİSK ana sayfa"><span class="brand">MNEMO<em>RİSK</em></span><span class="brand-subtitle">{projectSubtitle}</span></a>
+  <a class="brand-group" href={href(isEnglish ? 'en/' : '')} aria-label={isEnglish ? 'MNEMORISK home page' : 'MNEMORİSK ana sayfa'}><span class="brand">MNEMO<em>RİSK</em></span><span class="brand-subtitle">{projectSubtitle}</span></a>
   <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false">MENÜ ☰</button>
   <nav class="desktop-nav nav" id="site-nav" aria-label="Ana menü">
-   {menu.map(item=><a href={href(item.path)} aria-current={current.endsWith('/'+item.path) ? 'page' : undefined}>{item.label}</a>)}
-   <span class="lang" title="İngilizce sürüm hazırlanıyor">TR / EN yakında</span>
+   {activeMenu.map(item=><a href={href(isEnglish ? `en/${item.path}` : item.path)} aria-current={current.endsWith('/'+item.path) || (item.path === '' && current === '/') ? 'page' : undefined}>{item.label}</a>)}
+   <a class="lang" href={languageTarget} lang={isEnglish ? 'tr' : 'en'} aria-label={isEnglish ? 'Türkçe' : 'English'}>{languageLabel}</a>
   </nav>
  </div>
 </header>
@@ -113,10 +116,10 @@ img,svg{max-width:100%}
 <footer class="site-footer">
  <div class="wrap">
   <div class="footer-grid">
-   <div><div class="footer-title">MNEMORİSK</div><p>Hafıza Temelli Sosyal Zarar Görebilirlik: Erzincan’da Toplumsal Hafızanın Afet Risk Yönetimine Entegrasyonu ve Mekânsal Modellemesi.</p></div>
-   <div><p>Erzincan Binali Yıldırım Üniversitesi bünyesinde yürütülmektedir.</p><p>Proje, TÜBİTAK 1001 kapsamında 226K193 numarasıyla desteklenmeye hak kazanmıştır.</p></div>
+   <div><div class="footer-title">MNEMORİSK</div><p>{isEnglish ? 'Mnemonic Social Vulnerability: Integrating Collective Memory into Disaster Risk Management and Spatial Modelling in Erzincan, Türkiye.' : 'Hafıza Temelli Sosyal Zarar Görebilirlik: Erzincan’da Toplumsal Hafızanın Afet Risk Yönetimine Entegrasyonu ve Mekânsal Modellemesi.'}</p></div>
+   <div><p>{isEnglish ? 'Conducted at Erzincan Binali Yıldırım University.' : 'Erzincan Binali Yıldırım Üniversitesi bünyesinde yürütülmektedir.'}</p><p>{isEnglish ? 'The project has been awarded funding under the TÜBİTAK 1001 Programme (Project No. 226K193).' : 'Proje, TÜBİTAK 1001 kapsamında 226K193 numarasıyla desteklenmeye hak kazanmıştır.'}</p></div>
   </div>
-  <div class="footer-bottom"><span>© {new Date().getFullYear()} MNEMORİSK</span><span>Bilimsel içerik · Türkçe ön sürüm</span></div>
+  <div class="footer-bottom"><span>© {new Date().getFullYear()} MNEMORİSK</span><span>{isEnglish ? 'Research project · English version' : 'Bilimsel içerik · Türkçe'}</span></div>
  </div>
 </footer>
 <script>
