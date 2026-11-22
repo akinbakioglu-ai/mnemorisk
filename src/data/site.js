@@ -72,7 +72,7 @@ export const sections = {
     role:'Proje Bursiyeri',
     institution:'Erzincan Binali Yıldırım Üniversitesi · Sosyoloji Bölümü · Sosyoloji Yüksek Lisans Öğrencisi',
     image:'/S%C3%9CMEYYE%20TURAK.png',
-    bio:['Sümeyye Turak Erzincan Binali Yıldırım Üniversitesi Yüksek Lisans öğrencisidir. Çalışmalarını toplumsal hafıza ve afet sosyolojisi alanlarında sürdürmektedir.']
+    bio:['Sümeyye Turak, Erzincan Binali Yıldırım Üniversitesi Sosyoloji Bölümü yüksek lisans öğrencisidir. Çalışmalarını toplumsal hafıza ve afet sosyolojisi alanlarında sürdürmektedir.']
   },blocks:[]},
   iletisim:{eyebrow:'06 / İLETİŞİM',title:'MNEMORİSK ile iletişim.',intro:'Araştırmaya ilişkin sorular, akademik iş birlikleri ve kurumsal talepler için iletişim bilgileri burada yayımlanacak.',blocks:[
     {heading:'İletişim bilgileri hazırlanıyor',text:'Resmî proje e-posta adresi ve uygun iletişim kanalları netleştiğinde bu alan güncellenecek.'},
