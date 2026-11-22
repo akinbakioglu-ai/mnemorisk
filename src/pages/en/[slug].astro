@@ -108,4 +108,83 @@ const isContact = Astro.params.slug === 'contact';
 </SiteLayout>
 <style>
 .wrap{width:min(1220px,calc(100% - 64px));margin-inline:auto}.team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 24px;padding:26px 0 80px}.team-card{min-width:0;background:#fff;border:1px solid #dce5eb;display:flex;flex-direction:column}.team-card-trigger{display:flex;flex-direction:column;cursor:pointer;list-style:none;height:100%}.team-card-trigger::-webkit-details-marker{display:none}.team-card-photo{height:260px;background:#edf2f5;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:12px}.team-card-photo img{display:block;width:100%;height:100%;object-fit:contain}.team-card-content{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}.team-card-content .eyebrow{font-size:11px;letter-spacing:.08em;line-height:1.5;color:#668195;min-height:17px}.team-card-content h2{font-size:21px;line-height:1.3;letter-spacing:-.02em;font-weight:600;color:#1e4058;margin:9px 0 10px;min-height:54px}.team-institution{font:13px/1.65 Arial,Helvetica,sans-serif;color:#63798a;margin:0 0 16px}.team-bio{padding:20px 20px 22px;border-top:1px solid #dce5eb}.team-bio p{font-size:14.5px;line-height:1.9;color:#465e6e;margin:0;text-align:justify;text-justify:inter-word}.page-intro{padding:55px 0 38px;border-bottom:1px solid #dde5eb}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;color:#4c7290}.page-intro h1{font-size:clamp(34px,3.9vw,51px);line-height:1.15;letter-spacing:-.04em;margin:13px 0 16px}.page-intro p{font-size:clamp(16px,1.45vw,19px);color:#596c7e;line-height:1.55;max-width:790px;margin:0}.article-list{padding:25px 0 60px}.article-row{display:grid;grid-template-columns:minmax(210px,.9fr) 1.7fr;gap:35px;padding:31px 0;border-bottom:1px solid #dde5eb}.article-row h2{font-size:clamp(22px,2.4vw,30px);line-height:1.22;letter-spacing:-.025em;margin:8px 0}.article-row p{font-size:17px;line-height:1.7;color:#526577;margin:0}.button{display:inline-flex;background:#153c54;color:white;padding:14px 20px;font-size:14px;font-weight:700;margin-bottom:65px}@media(max-width:900px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.team-card-photo{height:240px}}@media(max-width:560px){.team-grid{grid-template-columns:1fr;gap:18px;padding-top:18px}.team-card-photo{height:270px}.team-card-content{padding:20px}.team-card-content h2{min-height:0;font-size:20px}}@media(max-width:600px){.wrap{width:calc(100% - 32px)}.page-intro{padding:36px 0 28px}.article-row{grid-template-columns:1fr;gap:12px;padding:23px 0}.article-row p{font-size:16px}}
+    .contact-area{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.8fr);gap:70px;padding:65px 0 110px}
+    .contact-form-wrap h2,.social-panel h2{font-size:clamp(30px,3.5vw,45px);font-weight:normal;letter-spacing:-.04em;line-height:1.15;margin:15px 0}
+    .contact-intro{font-size:17px;line-height:1.7;color:#5d6c60;max-width:590px}
+    .contact-form{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+    .contact-form label{font:12px Arial,Helvetica,sans-serif;color:#405448;margin-top:9px}
+    .contact-form input:not([type=hidden]),.contact-form select,.contact-form textarea{width:100%;border:1px solid #cbd4ca;background:#fbfbf7;border-radius:0;padding:14px 15px;font:16px Arial,Helvetica,sans-serif;color:#243029}
+    .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline:2px solid #7b9382;outline-offset:1px}
+    .contact-form textarea{resize:vertical;min-height:150px}
+    .honey-field{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0!important}
+    .captcha-note{font:13px/1.6 Arial,Helvetica,sans-serif;color:#536a59;background:#e8ebe3;padding:14px 16px;margin:12px 0 5px}
+    .captcha-note span{font-size:19px;margin-right:8px}
+    .contact-submit{display:flex;justify-content:space-between;align-items:center;gap:25px;border:0;background:#2b4235;color:#fff;padding:17px 20px;font:13px Arial,Helvetica,sans-serif;cursor:pointer;text-align:left}
+    .contact-submit:hover{background:#42614b}
+    .activation-note{font:13px/1.65 Arial,Helvetica,sans-serif;color:#526357;border-left:3px solid #b56e54;padding:10px 15px;background:#f2f0e9;margin:6px 0}.activation-note a{text-decoration:underline;text-underline-offset:3px}
+    .privacy-note,.social-note{font:12px/1.65 Arial,Helvetica,sans-serif;color:#748075}
+    .social-panel{background:#eef0e9;padding:30px;height:max-content}
+    .social-link{display:flex;align-items:center;gap:14px;border-top:1px solid #d3dbd0;padding:20px 0}
+    .social-link:last-of-type{border-bottom:1px solid #d3dbd0}
+    .social-mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid #c5d0c4;border-radius:50%;font:22px Arial,sans-serif}
+    .social-link strong,.social-link small{display:block}
+    .social-link strong{font-size:18px;font-weight:normal}
+    .social-link small{font:12px Arial,sans-serif;color:#718074;margin-top:4px}
+    .social-arrow{margin-left:auto;color:#718074}
+    .social-link:hover strong{color:#a05a46}
+    .email-note{border-top:1px solid #d3dbd0;margin-top:28px;padding-top:22px}
+    .email-note a{display:block;margin-top:10px;font-size:17px;overflow-wrap:anywhere}
+    @media(max-width:800px){.contact-area{grid-template-columns:1fr;gap:35px;padding-top:45px}.social-panel{padding:24px}}
+
+    /* Research & Data Lab style for the existing working contact form */
+    .contact-area{grid-template-columns:minmax(0,1.25fr) minmax(270px,.8fr);gap:clamp(24px,4vw,52px)}
+    .contact-form-wrap h2,.social-panel h2{font-family:Arial,Helvetica,sans-serif;font-weight:700;letter-spacing:-.025em;color:#1e4058}
+    .contact-intro{color:#586f81}
+    .contact-form input:not([type=hidden]),.contact-form select,.contact-form textarea{background:#fff;border-color:#cbdce6;border-radius:3px;color:#213e53}
+    .contact-form label{color:#405e72;font-weight:700}
+    .contact-submit{background:#153c54}.contact-submit:hover{background:#265e7d}
+    .social-panel{background:#edf3f7;border:1px solid #d8e5ed}
+    .social-link,.social-link:last-of-type,.email-note{border-color:#cbdbe5}
+    .social-link strong{font-family:Arial,Helvetica,sans-serif;font-weight:700;color:#294b63}
+    .social-link small,.social-note,.privacy-note{color:#657b8b}
+    .social-mark{border-color:#bad0dd;color:#245c7b}
+    .email-note a{color:#245e81}
+    .captcha-note{color:#637c8d}
+    /* Contact-specific hierarchy: keep page title proportional to form headings */
+    .page-intro{padding:38px 0 28px}
+    .page-intro h1{font-size:clamp(32px,3.3vw,44px);line-height:1.18;letter-spacing:-.025em;margin:12px 0 10px}
+    .page-intro p{font-size:clamp(16px,1.35vw,18px);line-height:1.58;max-width:720px}
+    @media(max-width:800px){.page-intro{padding:32px 0 24px}.page-intro h1{font-size:clamp(31px,5vw,40px)}}
+    @media(max-width:540px){.page-intro{padding:26px 0 20px}.page-intro h1{font-size:clamp(30px,8vw,35px)}.page-intro p{font-size:16px}}
+    /* Contact page: compact, balanced form and sidebar */
+    .contact-area{grid-template-columns:minmax(0,1.22fr) minmax(280px,.82fr);gap:clamp(26px,4vw,56px);padding:38px 0 75px;align-items:start}
+    .contact-form-wrap h2,.social-panel h2{font-size:clamp(27px,2.8vw,36px);line-height:1.18;letter-spacing:-.028em;margin:10px 0 12px}
+    .contact-intro{font-size:16px;line-height:1.58;margin:0}
+    .contact-form{gap:0;margin-top:20px}
+    .contact-form label{font-size:13px;margin:13px 0 6px}
+    .contact-form input:not([type=hidden]),.contact-form select,.contact-form textarea{padding:11px 13px;line-height:1.4;font-size:16px}
+    .contact-form textarea{min-height:115px}
+    .captcha-note{font-size:12px;line-height:1.5;background:transparent;padding:0;margin:14px 0 10px}
+    .captcha-note span{font-size:15px;margin-right:5px}
+    .contact-submit{padding:14px 17px;font-size:14px;min-height:46px}
+    .privacy-note{margin:12px 0 0;font-size:12px;line-height:1.5}
+    .social-panel{padding:25px}
+    .social-link{gap:12px;padding:15px 0}
+    .social-mark{width:38px;height:38px;font-size:20px;flex-shrink:0}
+    .social-link strong{font-size:17px}
+    .social-link small{font-size:12px;overflow-wrap:anywhere}
+    .social-note{margin:14px 0;font-size:12px}
+    .email-note{margin-top:18px;padding-top:17px}
+    .email-note a{font-size:16px}
+    @media(max-width:800px){.contact-area{grid-template-columns:1fr;gap:28px;padding:30px 0 60px}.social-panel{padding:22px}}
+    @media(max-width:540px){.contact-area{padding:26px 0 48px}.contact-form-wrap h2,.social-panel h2{font-size:29px}.social-panel{padding:18px}.contact-form textarea{min-height:120px}}
+
+    .contact-intro,
+    .captcha-note,
+    .privacy-note,
+    .social-note {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
 </style>
