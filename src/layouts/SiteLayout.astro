@@ -2,13 +2,13 @@
 import { href, menu, menuEn } from '../data/site.js';
 const { title='MNEMORİSK', description='Erzincan’da deprem hafızası, risk algısı ve sosyal zarar görebilirlik üzerine araştırma.' } = Astro.props;
 const current = Astro.url.pathname;
+const isEnglish = /\/en(?:\/|$)/.test(current);
 const activeMenu = isEnglish ? menuEn : menu;
 const routePairs = { project: 'proje', research: 'arastirma', maps: 'haritalar', publications: 'yayinlar', team: 'ekip', contact: 'iletisim' };
-const section = current.replace(/^\\/|\\/$/g, '').split('/').filter(Boolean)[isEnglish ? 1 : 0] || '';
+const section = current.replace(/^\/|\/$/g, '').split('/').filter(Boolean)[isEnglish ? 1 : 0] || '';
 const targetSection = isEnglish ? (routePairs[section] || '') : (Object.keys(routePairs).find(key => routePairs[key] === section) || '');
-const languageTarget = href(isEnglish ? (targetSection ? `${targetSection}/` : '') : (targetSection ? `en/${targetSection}/` : 'en/'));
+const languageTarget = href(isEnglish ? (targetSection ? \`\${targetSection}/\` : '') : (targetSection ? \`en/\${targetSection}/\` : 'en/'));
 const languageLabel = isEnglish ? 'TR' : 'EN';
-const isEnglish = /\/en(?:\/|$)/.test(current);
 const projectSubtitle = isEnglish
   ? 'Mnemonic Social Vulnerability: Integrating Collective Memory into Disaster Risk Management and Spatial Modelling in Erzincan, Türkiye'
   : 'Hafıza Temelli Sosyal Zarar Görebilirlik: Erzincan’da Toplumsal Hafızanın Afet Risk Yönetimine Entegrasyonu ve Mekânsal Modellemesi';
