@@ -38,11 +38,50 @@ const pages = {
 return Object.keys(pages).map(slug => ({ params: { slug }, props: { page: pages[slug] } }));
 }
 const { page } = Astro.props;
+const isContact = Astro.params.slug === 'contact';
 ---
 <SiteLayout title={page.title} description={page.intro}>
   <div class="wrap">
     <header class="page-intro"><span class="eyebrow">{page.eyebrow}</span><h1>{page.heading}</h1><p>{page.intro}</p></header>
-    {page.members ? (
+    {isContact ? (
+      <section class="contact-area">
+        <div class="contact-form-wrap">
+          <div class="eyebrow">SEND A MESSAGE</div>
+          <h2>Get in touch with us.</h2>
+          <p class="contact-intro">Please use the form below for research enquiries, academic collaboration and questions about the project.</p>
+          <form action="https://formsubmit.co/mnemorisk@gmail.com" method="POST" class="contact-form">
+            <input type="hidden" name="_subject" value="MNEMORISK website contact message" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="true" />
+            <input type="text" name="_honey" class="honey-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <label for="contact-name">Full name</label>
+            <input id="contact-name" type="text" name="name" autocomplete="name" maxlength="100" required />
+            <label for="contact-email">Email address</label>
+            <input id="contact-email" type="email" name="email" autocomplete="email" maxlength="254" required />
+            <label for="contact-subject">Subject</label>
+            <select id="contact-subject" name="Subject" required>
+              <option value="Research enquiry">Research enquiry</option>
+              <option value="Academic collaboration">Academic collaboration</option>
+              <option value="Press and communications">Press and communications</option>
+              <option value="Other">Other</option>
+            </select>
+            <label for="contact-message">Your message</label>
+            <textarea id="contact-message" name="message" rows="6" maxlength="5000" required></textarea>
+            <p class="captcha-note"><span aria-hidden="true">⛨</span> An automated spam check may be applied when you submit the message.</p>
+            <button class="contact-submit" type="submit">Send message <span aria-hidden="true">↗</span></button>
+            <p class="privacy-note">By submitting this form, you agree that your message may be sent to the project email address for communication purposes. Please do not share sensitive personal or health information.</p>
+          </form>
+        </div>
+        <aside class="social-panel">
+          <div class="eyebrow">SOCIAL MEDIA</div>
+          <h2>Follow the latest updates.</h2>
+          <a class="social-link" href="https://x.com/mnemorisk" target="_blank" rel="noopener noreferrer"><span class="social-mark">𝕏</span><span><strong>X</strong><small>@mnemorisk · x.com/mnemorisk</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
+          <a class="social-link" href="https://www.instagram.com/mnemorisk/" target="_blank" rel="noopener noreferrer"><span class="social-mark">◎</span><span><strong>Instagram</strong><small>@mnemorisk · instagram.com/mnemorisk</small></span><span class="social-arrow" aria-hidden="true">↗</span></a>
+          <p class="social-note">Follow MNEMORISK’s latest announcements through our social media accounts.</p>
+          <div class="email-note"><span class="eyebrow">EMAIL</span><a href="mailto:mnemorisk@gmail.com">mnemorisk@gmail.com</a></div>
+        </aside>
+      </section>
+    ) : page.members ? (
       <section class="team-grid" aria-label="MNEMORISK research team">
         {page.members.map((member) => <details class="team-card">
           <summary class="team-card-trigger">
