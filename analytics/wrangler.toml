@@ -1,0 +1,19 @@
+name = "mnemorisk-analytics"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+
+# Activate a custom domain only after the data-controller and
+# international-transfer review. Do not route the apex domain.
+# [[routes]]
+# pattern = "analytics.mnemorisk.org"
+# custom_domain = true
+
+[triggers]
+crons = ["20 0 * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mnemorisk-analytics"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+migrations_dir = "migrations"
