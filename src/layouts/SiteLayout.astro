@@ -69,7 +69,7 @@ img,svg{max-width:100%}
 .footer-title{font-size:31px;font-weight:800;letter-spacing:-.05em}
 .site-footer p{max-width:610px;font-size:14px;line-height:1.65;color:#c5d6e0}
 .footer-bottom{border-top:1px solid #456277;margin-top:38px;padding-top:24px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:12px;color:#d2dce3}
-.footer-bottom a{text-decoration:underline;text-underline-offset:3px}
+.footer-bottom a{text-decoration:underline;text-underline-offset:3px}.footer-legal{display:inline-flex;align-items:center;gap:16px;flex-wrap:wrap}.footer-legal a{padding-left:16px;border-left:1px solid #658095}
 .skip-link{position:absolute;left:-9999px;top:8px;background:white;color:#111;padding:12px;z-index:50}
 .skip-link:focus{left:12px}
 @media(max-width:1120px) and (min-width:901px){.brand-group{flex-basis:300px}.brand-subtitle{font-size:9px}.desktop-nav{gap:11px}.nav{font-size:12px}}
@@ -122,7 +122,7 @@ img,svg{max-width:100%}
    <div><div class="footer-title">MNEMORİSK</div><p>{isEnglish ? 'Mnemonic Social Vulnerability: Integrating Collective Memory into Disaster Risk Management and Spatial Modelling in Erzincan, Türkiye.' : 'Hafıza Temelli Sosyal Zarar Görebilirlik: Erzincan’da Toplumsal Hafızanın Afet Risk Yönetimine Entegrasyonu ve Mekânsal Modellemesi.'}</p></div>
    <div><p>{isEnglish ? 'Conducted at Erzincan Binali Yıldırım University.' : 'Erzincan Binali Yıldırım Üniversitesi bünyesinde yürütülmektedir.'}</p><p>{isEnglish ? 'The project has been awarded funding under the TÜBİTAK 1001 Programme (Project No. 226K193).' : 'Proje, TÜBİTAK 1001 kapsamında 226K193 numarasıyla desteklenmeye hak kazanmıştır.'}</p></div>
   </div>
-  <div class="footer-bottom"><span>© {new Date().getFullYear()} MNEMORİSK</span><span>{isEnglish ? 'Research project · English version' : 'Bilimsel içerik · Türkçe'}</span></div>
+  <div class="footer-bottom"><span class="footer-legal">© {new Date().getFullYear()} MNEMORİSK <a href={href('kvkk/')} aria-label={isEnglish ? 'Personal data protection and privacy' : 'KVKK ve gizlilik bilgileri'}>KVKK</a></span><span>{isEnglish ? 'Research project · English version' : 'Bilimsel içerik · Türkçe'}</span></div>
  </div>
 </footer>
 <script>
