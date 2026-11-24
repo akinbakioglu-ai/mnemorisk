@@ -87,9 +87,10 @@ async function maintain(db) {
   const now = new Date();
   const today = now.toISOString().slice(0, 10);
   const isoDayOffset = (n) => new Date(now.getTime() - n * 86400000).toISOString().slice(0, 10);
-  // Rebuild the latest 14 *finished* UTC days (also handles missed cron runs).
-  const days = await db.prepare('SELECT DISTINCT day_utc FROM page_views WHERE day_utc < ? AND day_utc >= ? ORDER BY day_utc')
-    .bind(today, isoDayOffset(14)).all();
+  // Rebuild all finished days that still have identifiers, including older
+  // days after a scheduler outage. The limit bounds work per cron invocation.
+  const days = await db.prepare('SELECT DISTINCT day_utc FROM page_views WHERE day_utc < ? AND visitor_key IS NOT NULL ORDER BY day_utc LIMIT 31')
+    .bind(today).all();
   for (const row of days.results || []) await aggregateDay(db, row.day_utc, now.toISOString());
   // Visitor keys are erased only after their daily summary exists.
   await db.prepare(`UPDATE page_views SET visitor_key = NULL
@@ -97,7 +98,9 @@ async function maintain(db) {
       AND EXISTS (SELECT 1 FROM daily_site WHERE daily_site.day_utc = page_views.day_utc)`)
     .bind(isoDayOffset(14)).run();
   // Raw event data is kept for 180 days. Daily aggregate tables remain.
-  await db.prepare('DELETE FROM page_views WHERE day_utc < ?').bind(isoDayOffset(180)).run();
+  await db.prepare(`DELETE FROM page_views WHERE day_utc < ?
+    AND EXISTS (SELECT 1 FROM daily_site WHERE daily_site.day_utc = page_views.day_utc)`)
+    .bind(isoDayOffset(180)).run();
 }
 export default {
   async fetch(request, env) {
