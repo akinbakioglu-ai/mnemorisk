@@ -1,3 +1,4 @@
+import { sendScheduledReports } from './reports.js';
 // MNEMORISK analytics collector. Intentionally not deployed by the site workflow.
 // No cookies, sessionStorage, localStorage or raw IP persistence.
 const ALLOWED_ORIGINS = new Set(['https://mnemorisk.org', 'https://www.mnemorisk.org']);
@@ -221,6 +222,10 @@ export default {
     catch { return json({ error: 'write_failed' }, 503, request.headers.get('origin') || ''); }
   },
   async scheduled(_event, env, ctx) {
-    ctx.waitUntil(maintain(env.DB));
+    ctx.waitUntil((async () => {
+      // Recalculate daily statistics before preparing the emailed report.
+      await maintain(env.DB);
+      await sendScheduledReports(env);
+    })());
   }
 };
