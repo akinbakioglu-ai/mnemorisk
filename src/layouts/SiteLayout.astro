@@ -7,7 +7,7 @@ const activeMenu = isEnglish ? menuEn : menu;
 const routePairs = { project: 'proje', research: 'arastirma', maps: 'haritalar', publications: 'yayinlar', team: 'ekip', contact: 'iletisim' };
 const section = current.replace(/^\/|\/$/g, '').split('/').filter(Boolean)[isEnglish ? 1 : 0] || '';
 const targetSection = isEnglish ? (routePairs[section] || '') : (Object.keys(routePairs).find(key => routePairs[key] === section) || '');
-const languageTarget = href(isEnglish ? (targetSection ? targetSection + '/' : '') : (targetSection ? 'en/' + targetSection + '/' : 'en/'));
+const languageTarget = section === 'kvkk' ? href(isEnglish ? 'kvkk/' : 'en/kvkk/') : href(isEnglish ? (targetSection ? targetSection + '/' : '') : (targetSection ? 'en/' + targetSection + '/' : 'en/'));
 const languageLabel = isEnglish ? 'TR' : 'EN';
 const projectSubtitle = isEnglish
   ? 'Mnemonic Social Vulnerability: Integrating Collective Memory into Disaster Risk Management and Spatial Modelling in Erzincan, Türkiye'
@@ -122,7 +122,7 @@ img,svg{max-width:100%}
    <div><div class="footer-title">MNEMORİSK</div><p>{isEnglish ? 'Mnemonic Social Vulnerability: Integrating Collective Memory into Disaster Risk Management and Spatial Modelling in Erzincan, Türkiye.' : 'Hafıza Temelli Sosyal Zarar Görebilirlik: Erzincan’da Toplumsal Hafızanın Afet Risk Yönetimine Entegrasyonu ve Mekânsal Modellemesi.'}</p></div>
    <div><p>{isEnglish ? 'Conducted at Erzincan Binali Yıldırım University.' : 'Erzincan Binali Yıldırım Üniversitesi bünyesinde yürütülmektedir.'}</p><p>{isEnglish ? 'The project has been awarded funding under the TÜBİTAK 1001 Programme (Project No. 226K193).' : 'Proje, TÜBİTAK 1001 kapsamında 226K193 numarasıyla desteklenmeye hak kazanmıştır.'}</p></div>
   </div>
-  <div class="footer-bottom"><span class="footer-legal">© {new Date().getFullYear()} MNEMORİSK <a href={href('kvkk/')} aria-label={isEnglish ? 'Personal data protection and privacy' : 'KVKK ve gizlilik bilgileri'}>KVKK</a></span><span>{isEnglish ? 'Research project · English version' : 'Bilimsel içerik · Türkçe'}</span></div>
+  <div class="footer-bottom"><span class="footer-legal">© {new Date().getFullYear()} MNEMORİSK <a href={href(isEnglish ? 'en/kvkk/' : 'kvkk/')} aria-label={isEnglish ? 'Personal data protection and privacy' : 'KVKK ve gizlilik bilgileri'}>{isEnglish ? 'Privacy' : 'KVKK'}</a></span><span>{isEnglish ? 'Research project · English version' : 'Bilimsel içerik · Türkçe'}</span></div>
  </div>
 </footer>
 <script>
