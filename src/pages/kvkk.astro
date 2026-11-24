@@ -1,0 +1,47 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+<SiteLayout title="KVKK ve Gizlilik" description="MNEMORİSK web sitesinin gizlilik ve kişisel veri işleme bilgilendirmesi.">
+  <div class="wrap">
+    <section class="page-intro">
+      <div class="eyebrow">GİZLİLİK / KVKK</div>
+      <h1>Gizlilik ve kişisel verilerin korunması</h1>
+      <p>MNEMORİSK web sitesinin mevcut veri işleme faaliyetlerine ilişkin bilgilendirme.</p>
+    </section>
+    <article class="privacy-content">
+      <section>
+        <h2>Site yönetimi ve iletişim</h2>
+        <p>MNEMORİSK web sitesinin teknik ve içerik yönetimi Doç. Dr. Akın Bakioğlu tarafından yürütülmektedir. Web sitesiyle ilgili gizlilik soruları için <a href="mailto:mnemorisk@gmail.com">mnemorisk@gmail.com</a> adresinden iletişime geçebilirsiniz.</p>
+      </section>
+      <section>
+        <h2>Ziyaretçi istatistikleri</h2>
+        <p>MNEMORİSK için ziyaret edilen sayfaları, yönlendiren kaynakları, cihaz türünü ve sayfada geçirilen süreyi ölçebilecek bir analitik altyapı hazırlanmıştır. <strong>Bu özel ziyaretçi analiz sistemi henüz etkin değildir.</strong> Bu sistem devreye alınmadan önce toplanacak veriler, işleme amacı, hukuki dayanak, saklama süreleri ve yurt dışına aktarım hakkında ayrıntılı aydınlatma bu sayfada yayımlanacaktır.</p>
+        <p>Şu anda MNEMORİSK tarafından ziyaretçilerin cihazına analitik amaçlı çerez veya kalıcı ziyaretçi kimliği yerleştiren bir kod etkinleştirilmemiştir. Bununla birlikte barındırma, alan adı ve ağ hizmeti sağlayıcıları teknik işleyiş ve güvenlik kapsamında bağlantı kayıtları işleyebilir.</p>
+      </section>
+      <section>
+        <h2>İletişim formu</h2>
+        <p>Sitedeki iletişim formunu kullanırsanız adınız, e-posta adresiniz, seçtiğiniz konu ve mesajınız, talebinizi yanıtlamak amacıyla işlenir. Form gönderiminde FormSubmit adlı dış hizmet kullanılır ve mesaj proje e-posta adresine iletilir. Formu kullanmadan da doğrudan <a href="mailto:mnemorisk@gmail.com">mnemorisk@gmail.com</a> adresine yazabilirsiniz.</p>
+        <p>Form aracılığıyla hassas kişisel veri veya araştırma katılımcılarına ilişkin gizli bilgi göndermeyiniz.</p>
+      </section>
+      <section>
+        <h2>Dış hizmetler ve bağlantılar</h2>
+        <p>Web sitesi GitHub Pages üzerinde barındırılır; alan adı Cloudflare üzerinden yönetilir. İletişim formu FormSubmit üzerinden işlenir. Sitedeki dış bağlantılar üzerinden üçüncü taraf sitelerine geçtiğinizde bu sitelerin kendi gizlilik koşulları uygulanır. Dış hizmet sağlayıcılarının altyapısı nedeniyle kişisel verilerin yurt dışında işlenmesi söz konusu olabilir.</p>
+      </section>
+      <section>
+        <h2>Başvuru ve haklarınız</h2>
+        <p>6698 sayılı Kişisel Verilerin Korunması Kanunu'nun 11. maddesi kapsamındaki talepleriniz için <a href="mailto:mnemorisk@gmail.com">mnemorisk@gmail.com</a> adresinden ön iletişim kurabilirsiniz. KVKK kapsamındaki resmî başvuruların usulüne uygun iletilmesi gerekebilir.</p>
+      </section>
+      <p class="updated">Son güncelleme: 25 Kasım 2026</p>
+    </article>
+  </div>
+  <style>
+    .privacy-content{max-width:890px;padding:28px 0 78px}
+    .privacy-content section{padding:22px 0;border-bottom:1px solid #dce5eb}
+    .privacy-content section:first-child{padding-top:5px}
+    .privacy-content h2{font-size:clamp(20px,2.2vw,25px);line-height:1.3;color:#173c55;letter-spacing:-.02em;margin:0 0 12px}
+    .privacy-content p{font-size:16px;line-height:1.85;color:#4b6173;margin:0 0 13px}
+    .privacy-content a{color:#15577c;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+    .updated{color:#788b9a!important;font-size:12px!important;margin-top:25px!important}
+    @media(max-width:600px){.privacy-content{padding:18px 0 55px}.privacy-content section{padding:20px 0}.privacy-content p{font-size:15px;line-height:1.75}}
+  </style>
+</SiteLayout>
