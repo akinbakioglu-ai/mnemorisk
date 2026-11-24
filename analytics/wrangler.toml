@@ -22,7 +22,5 @@ migrations_dir = "migrations"
 [vars]
 REPORTS_ENABLED = "false"
 
-[[send_email]]
-name = "EMAIL"
-destination_address = "akin.bakioglu@erzincan.edu.tr"
-allowed_sender_addresses = ["reports@mnemorisk.org"]
+# Email binding is intentionally omitted until sender domain and recipient
+# are verified in Cloudflare Email Service. REPORTS_ENABLED remains false.
