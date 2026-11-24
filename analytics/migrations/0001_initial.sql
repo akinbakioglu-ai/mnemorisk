@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS daily_site (
   day_utc TEXT PRIMARY KEY,
   pageviews INTEGER NOT NULL,
   daily_unique_visitors INTEGER NOT NULL,
+  visits INTEGER NOT NULL,
   total_active_seconds INTEGER NOT NULL,
   timed_pageviews INTEGER NOT NULL,
   computed_at TEXT NOT NULL,
