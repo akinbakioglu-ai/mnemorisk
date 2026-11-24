@@ -96,7 +96,7 @@ function render(period,data) {
     ['Dosya indirme, harici tıklama ve dahili bağlantı olayları',data.events]
   ];
   if(period.kind==='monthly') for(const [label,rows] of sections) base.push(tableText(label,rows));
-  const text=base.join('\n')+'\nNot: Botlar tümüyle ayıklanamaz. Etkin süre tahmindir. Düşük sayılı kırılımlar (5'ten az) e-postada gösterilmez. Veriler yalnızca toplulaştırılmıştır.\n';
+  const text=base.join('\n')+'\nNot: Botlar tümüyle ayıklanamaz. Etkin süre tahmindir. Düşük sayılı kırılımlar (beşten az) e-postada gösterilmez. Veriler yalnızca toplulaştırılmıştır.\n';
   const html=`<div style="font:15px/1.55 Arial,sans-serif;color:#213e53;max-width:700px">
   <h2>MNEMORİSK — ${escaped(title)}</h2>
   <p><b>Dönem (UTC):</b> ${period.start} – ${period.end}</p>
