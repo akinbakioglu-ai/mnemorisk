@@ -68,10 +68,16 @@ async function collect(request, env) {
 async function aggregateDay(db, day, computedAt) {
   const batch = [
     db.prepare(`INSERT OR REPLACE INTO daily_site
-      (day_utc,pageviews,daily_unique_visitors,total_active_seconds,timed_pageviews,computed_at,measurement_version)
-      SELECT ?,COUNT(*),COUNT(DISTINCT visitor_key),COALESCE(SUM(active_seconds),0),
+      (day_utc,pageviews,daily_unique_visitors,visits,total_active_seconds,timed_pageviews,computed_at,measurement_version)
+      SELECT ?,COUNT(*),COUNT(DISTINCT visitor_key),
+             (SELECT COUNT(*) FROM
+               (SELECT visitor_key,first_seen_at,
+                 LAG(first_seen_at) OVER (PARTITION BY visitor_key ORDER BY first_seen_at) AS prior
+                FROM page_views WHERE day_utc = ? AND visitor_key IS NOT NULL)
+              WHERE prior IS NULL OR (julianday(first_seen_at)-julianday(prior))*86400 > 1800),
+             COALESCE(SUM(active_seconds),0),
              SUM(CASE WHEN active_seconds > 0 THEN 1 ELSE 0 END),?,'engagement_v1'
-      FROM page_views WHERE day_utc = ?`).bind(day, computedAt, day),
+      FROM page_views WHERE day_utc = ?`).bind(day, day, computedAt, day),
     db.prepare('DELETE FROM daily_breakdown WHERE day_utc = ?').bind(day),
   ];
   for (const [dimension, column] of [['page', 'page_path'], ['country', 'country_code'], ['referrer', 'referrer_domain']]) {
