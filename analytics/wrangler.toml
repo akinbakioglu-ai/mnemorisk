@@ -10,10 +10,19 @@ workers_dev = false
 # custom_domain = true
 
 [triggers]
-crons = ["20 0 * * *"]
+crons = ["20 0 * * *", "15 7 * * *"]
 
 [[d1_databases]]
 binding = "DB"
 database_name = "mnemorisk-analytics"
 database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
 migrations_dir = "migrations"
+
+# Keep sending disabled until verified in Cloudflare and migration applied.
+[vars]
+REPORTS_ENABLED = "false"
+
+[[send_email]]
+name = "EMAIL"
+destination_address = "akin.bakioglu@erzincan.edu.tr"
+allowed_sender_addresses = ["reports@mnemorisk.org"]
