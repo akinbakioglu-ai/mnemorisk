@@ -1,0 +1,46 @@
+name: Validate dormant analytics code
+on:
+  push:
+    paths:
+      - 'analytics/**'
+      - '.github/workflows/validate-analytics.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check analytics/src/index.js
+          node --check analytics/client.js
+      - name: Test D1 SQLite migrations
+        run: |
+          python3 - <<'PY'
+          import sqlite3
+          from pathlib import Path
+          db = sqlite3.connect(':memory:')
+          for migration in sorted(Path('analytics/migrations').glob('*.sql')):
+              db.executescript(migration.read_text(encoding='utf-8'))
+          tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+          assert {'page_views', 'page_events', 'daily_site', 'daily_breakdown', 'daily_extra_breakdown', 'daily_events'} <= tables
+          columns = {r[1] for r in db.execute('PRAGMA table_info(page_views)')}
+          assert {'device_type', 'browser_language', 'content_language', 'campaign_source', 'campaign_medium', 'campaign_name', 'region_code', 'entry_page_path', 'scroll_depth'} <= columns
+          assert not {'ip', 'user_agent', 'raw_ip'} & columns
+          print('SQLite schema and both migrations: OK')
+          PY
+      - name: Verify no browser persistence
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          client = Path('analytics/client.js').read_text()
+          # Ignore explanatory comments, assert no persistence API usage in code.
+          body = '\n'.join(line for line in client.splitlines() if not line.lstrip().startswith('*') and not line.lstrip().startswith('/*'))
+          assert 'localStorage.' not in body and 'sessionStorage.' not in body and 'document.cookie' not in body
+          print('No client-side storage APIs: OK')
+          PY
