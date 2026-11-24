@@ -1,6 +1,5 @@
 // MNEMORİSK scheduled email reports — aggregate rows only, no event-level data.
 const RECIPIENT = 'akin.bakioglu@erzincan.edu.tr';
-const ZONE = 'Europe/Istanbul';
 const pad = (n) => String(n).padStart(2, '0');
 const utcDay = (date) => date.toISOString().slice(0, 10);
 const plusDays = (day, offset) => {
@@ -33,7 +32,6 @@ const secs = (v) => {
 };
 const escaped = (s) => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const display = (s, max=85) => escaped(String(s).slice(0,max));
-function monthLabel(period) { return period.start.slice(0,7); }
 async function readAll(db, sql, params) {
   const r = await db.prepare(sql).bind(...params).all();
   return r.results || [];
@@ -50,9 +48,9 @@ async function stats(db, period) {
     readAll(db, `SELECT dimension_value AS label,SUM(pageviews) AS hits,SUM(total_active_seconds) AS seconds
     FROM ${['daily_breakdown','daily_extra_breakdown'].includes(dimension.table)?dimension.table:'daily_breakdown'}
     WHERE day_utc BETWEEN ? AND ? AND dimension = ?
-    GROUP BY dimension_value ORDER BY hits DESC LIMIT ${limit}`,[...params,dimension.name]);
+    GROUP BY dimension_value HAVING SUM(pageviews) >= 5 ORDER BY hits DESC LIMIT ${limit}`,[...params,dimension.name]);
   const events = await readAll(db, `SELECT event_type,target,SUM(event_count) AS hits FROM daily_events
-    WHERE day_utc BETWEEN ? AND ? GROUP BY event_type,target ORDER BY hits DESC LIMIT 15`,params);
+    WHERE day_utc BETWEEN ? AND ? GROUP BY event_type,target HAVING SUM(event_count) >= 5 ORDER BY hits DESC LIMIT 15`,params);
   const dates = new Set(days.map(x=>x.day_utc));
   const missing = [];
   for (let date=period.start;date<=period.end;date=plusDays(date,1)) if(!dates.has(date))missing.push(date);
@@ -98,7 +96,7 @@ function render(period,data) {
     ['Dosya indirme, harici tıklama ve dahili bağlantı olayları',data.events]
   ];
   if(period.kind==='monthly') for(const [label,rows] of sections) base.push(tableText(label,rows));
-  const text=base.join('\n')+'\nNot: Botlar tümüyle ayıklanamaz. Etkin süre tahmindir. Veriler yalnızca toplulaştırılmıştır.\n';
+  const text=base.join('\n')+'\nNot: Botlar tümüyle ayıklanamaz. Etkin süre tahmindir. Düşük sayılı kırılımlar (5'ten az) e-postada gösterilmez. Veriler yalnızca toplulaştırılmıştır.\n';
   const html=`<div style="font:15px/1.55 Arial,sans-serif;color:#213e53;max-width:700px">
   <h2>MNEMORİSK — ${escaped(title)}</h2>
   <p><b>Dönem (UTC):</b> ${period.start} – ${period.end}</p>
@@ -111,7 +109,7 @@ function render(period,data) {
   ${tableHtml('Ülkeler',data.countries)}
   ${tableHtml('Yönlendiren kaynaklar',data.sources)}
   ${period.kind==='monthly' ? sections.map(([name,rows])=>tableHtml(name,rows)).join('') : ''}
-  <p><small>Veriler toplulaştırılmıştır. Bot filtrelemesi ve süre ölçümü yaklaşık sonuçlar üretir.</small></p></div>`;
+  <p><small>Düşük sayılı kırılımlar (5'ten az) gösterilmez. Veriler toplulaştırılmıştır. Bot filtrelemesi ve süre ölçümü yaklaşık sonuçlar üretir.</small></p></div>`;
   return {subject:`MNEMORİSK | ${title} | ${period.start} – ${period.end}`,text,html};
 }
 async function claim(db,key,period) {
