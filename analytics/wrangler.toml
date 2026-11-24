@@ -15,7 +15,7 @@ crons = ["20 0 * * *", "15 7 * * *"]
 [[d1_databases]]
 binding = "DB"
 database_name = "mnemorisk-analytics"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "13b06076-f03c-498d-a0b9-14d10f315ea8"
 migrations_dir = "migrations"
 
 # Keep sending disabled until verified in Cloudflare and migration applied.
