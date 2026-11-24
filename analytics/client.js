@@ -50,7 +50,7 @@
     const now = performance.now();
     if (now - lastMouse > 3000) { lastMouse = now; interacted(); }
   }, { passive: true });
-  addEventListener('visibilitychange', tick);
+  document.addEventListener('visibilitychange', tick);
   addEventListener('focus', tick);
   addEventListener('blur', tick);
   addEventListener('pagehide', () => { tick(); send('progress'); });
