@@ -14,6 +14,21 @@ Bu klasör mevcut GitHub Pages sitesinden bağımsızdır. Canlı sitede ölçü
 
 `analytics/client.js` şu anda **bilerek** `public/` içinde değildir ve hiçbir sayfadan çağrılmamaktadır.
 
+## Seçilmiş ek veri alanları (v2)
+
+İlk sürümün temel alanlarına şu ölçümler eklendi:
+
+- Cihaz sınıfı: mobil / tablet / masaüstü (cihaz modeli veya tam User-Agent kaydedilmez).
+- Tarayıcı dili: yalnızca genel dil kodu (ör. `tr`, `en`).
+- İçerik dili: sayfanın `html lang` kodu (`tr` / `en`).
+- Kampanya: yalnızca `utm_source`, `utm_medium`, `utm_campaign` için kısa, güvenli karakterlerden oluşan etiketler. Diğer sorgu parametreleri saklanmaz.
+- Kaydırma: sayfa görüntülemesi için en yüksek yüzde (0–100); kalıcı özetlerde 0/25/50/75/100 grupları.
+- Coğrafya: ülke ve Cloudflare'ın bölge kodu; **şehir, GPS, koordinat ve açık adres saklanmaz**. Kod ülke önekiyle ayrıştırılır.
+- İndirme ve dış bağlantı: indirme için aynı sitede sorgusuz dosya yolu veya `external-file`; dış bağlantı için yalnızca hedef alan adı.
+- Navigasyon: dahili bağlantı tıklaması için hedef sayfa yolu ve kaynak sayfa için `entry_page_path`, tümü sorgu/fragment olmadan.
+
+`page_events` olayları aynı sayfa görüntüleme kimliğiyle ilişkilidir, 180 gün sonra silinir. `daily_events` özetleri bunlardan hesaplanır. `daily_extra_breakdown` diğer seçilmiş boyutların **ayrı ayrı** günlük toplamlarını saklar; düşük trafikli sayfalarda kullanıcıya benzeyen birleşik kırılımlar kalıcı arşive aktarılmamalıdır. CSV arşivleyicisi henüz uygulanmadı; aktarım öncesinde küçük hücre eşikleri gereklidir.
+
 ## Ölçüm tanımları
 
 - Kalıcı tarayıcı tanımlayıcısı/çerez/yerel depolama yok.
@@ -32,7 +47,7 @@ Günlük tekillerin toplamına aylık tekil kişi denmez. Aynı ağdaki kişiler
 
 - [ ] Veri sorumlusu ve Cloudflare hesap yetkilileri belirlendi
 - [ ] KVKK yurt dışına aktarım ve bilgilendirme incelendi
-- [ ] D1 oluşturuldu, migration başarılı, HMAC_SECRET tanımlandı
+- [ ] D1 oluşturuldu, iki migration başarılı, HMAC_SECRET tanımlandı
 - [ ] Worker alan adı ve güvenli raporlama erişimi açıldı
 - [ ] D1 arşivi için **ayrı Private depo** ve erişim anahtarları hazır
 - [ ] Otomatik yedekleme, sağlık denetimi ve hata bildirimi test edildi
