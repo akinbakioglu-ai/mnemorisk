@@ -19,6 +19,8 @@ jobs:
         run: |
           node --check analytics/src/index.js
           node --check analytics/client.js
+          node --check analytics/src/reports.js
+          node --test analytics/tests/reports.test.mjs
       - name: Test D1 SQLite migrations
         run: |
           python3 - <<'PY'
@@ -28,11 +30,11 @@ jobs:
           for migration in sorted(Path('analytics/migrations').glob('*.sql')):
               db.executescript(migration.read_text(encoding='utf-8'))
           tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-          assert {'page_views', 'page_events', 'daily_site', 'daily_breakdown', 'daily_extra_breakdown', 'daily_events'} <= tables
+          assert {'page_views', 'page_events', 'daily_site', 'daily_breakdown', 'daily_extra_breakdown', 'daily_events', 'report_deliveries'} <= tables
           columns = {r[1] for r in db.execute('PRAGMA table_info(page_views)')}
           assert {'device_type', 'browser_language', 'content_language', 'campaign_source', 'campaign_medium', 'campaign_name', 'region_code', 'entry_page_path', 'scroll_depth'} <= columns
           assert not {'ip', 'user_agent', 'raw_ip'} & columns
-          print('SQLite schema and both migrations: OK')
+          print('SQLite schema and all migrations: OK')
           PY
       - name: Verify no browser persistence
         run: |
