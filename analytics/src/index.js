@@ -43,9 +43,10 @@ function targetFor(type, value) {
     return typeof value === 'string' && /^[a-z0-9.-]{1,180}$/.test(value)
       && !value.includes('..') ? value : null;
   }
-  if (type === 'download' || type === 'navigation') {
-    return safePath(value);
+  if (type === 'download') {
+    return value === 'external-file' ? value : safePath(value);
   }
+  if (type === 'navigation') return safePath(value);
   return null;
 }
 function safePath(path) {
@@ -98,7 +99,7 @@ async function collect(request, env) {
   const country = typeof request.cf?.country === 'string' && /^[A-Z]{2}$/.test(request.cf.country) ? request.cf.country : 'ZZ';
   const region = typeof request.cf?.regionCode === 'string'
     && /^[A-Za-z0-9-]{1,8}$/.test(request.cf.regionCode)
-    ? request.cf.regionCode.toUpperCase() : 'ZZ';
+    ? country + '-' + request.cf.regionCode.toUpperCase() : 'ZZ';
   // A random page-view ID exists in browser RAM only. Maximum cumulative
   // measures and scroll depth avoid double-counting retried progress beacons.
   await env.DB.prepare(`
