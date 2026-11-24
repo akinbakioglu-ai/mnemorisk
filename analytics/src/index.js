@@ -21,6 +21,33 @@ function safeReferrer(value) {
     return /^[a-z0-9.-]{1,253}$/.test(hostname) ? hostname : 'other';
   } catch { return 'direct'; }
 }
+function slug(value, fallback = 'none', max = 48) {
+  return typeof value === 'string' && value.length <= max && /^[a-zA-Z0-9_-]{1,48}$/.test(value)
+    ? value.toLowerCase() : fallback;
+}
+function device(value) {
+  return ['desktop', 'mobile', 'tablet'].includes(value) ? value : 'unknown';
+}
+function language(value) {
+  return typeof value === 'string' && /^[a-z]{2,3}$/.test(value) ? value : 'und';
+}
+function depth(value) {
+  return Number.isInteger(value) && value >= 0 && value <= 100 ? value : 0;
+}
+function safeEntryPath(value) {
+  if (value === 'direct') return 'direct';
+  return safePath(value) || 'direct';
+}
+function targetFor(type, value) {
+  if (type === 'external') {
+    return typeof value === 'string' && /^[a-z0-9.-]{1,180}$/.test(value)
+      && !value.includes('..') ? value : null;
+  }
+  if (type === 'download' || type === 'navigation') {
+    return safePath(value);
+  }
+  return null;
+}
 function safePath(path) {
   if (typeof path !== 'string' || path.length > 180 || !/^\/(?:[a-zA-Z0-9_~.%/-]*)$/.test(path) || path.includes('//') || path.includes('..')) return null;
   return path;
@@ -43,26 +70,56 @@ async function collect(request, env) {
   try { data = await request.json(); } catch { return json({ error: 'invalid_json' }, 400, origin); }
   const viewId = data?.view_id;
   const path = safePath(data?.page_path);
-  if (typeof viewId !== 'string' || !/^[0-9a-f-]{36}$/i.test(viewId) || !path || !['view', 'progress'].includes(data?.type)) return json({ error: 'invalid_event' }, 400, origin);
+  if (typeof viewId !== 'string' || !/^[0-9a-f-]{36}$/i.test(viewId) || !path || !['view', 'progress', 'event'].includes(data?.type)) return json({ error: 'invalid_event' }, 400, origin);
   const active = data.type === 'progress' ? data.active_seconds : 0;
   if (!Number.isInteger(active) || active < 0 || active > 1800) return json({ error: 'invalid_seconds' }, 400, origin);
+  if (data.type === 'event') {
+    const eventId = data.event_id;
+    const eventType = data.event_type;
+    const target = targetFor(eventType, data.target);
+    if (typeof eventId !== 'string' || !/^[0-9a-f-]{36}$/i.test(eventId)
+        || !['external', 'download', 'navigation'].includes(eventType) || !target)
+      return json({ error: 'invalid_event_details' }, 400, origin);
+    // Only attach clicks to an already recorded view and the same page path.
+    const parent = await env.DB.prepare('SELECT day_utc FROM page_views WHERE view_id = ? AND page_path = ?')
+      .bind(viewId, path).first();
+    if (!parent) return json({ accepted: false }, 202, origin);
+    await env.DB.prepare(`INSERT OR IGNORE INTO page_events
+      (event_id,view_id,day_utc,occurred_at,event_type,target)
+      VALUES (?,?,?,?,?,?)`)
+      .bind(eventId, viewId, parent.day_utc, new Date().toISOString(), eventType, target).run();
+    return json({ accepted: true }, 202, origin);
+  }
   const now = new Date().toISOString();
   const day = now.slice(0, 10);
   const ip = request.headers.get('cf-connecting-ip') || '';
   if (!ip) return json({ error: 'missing_ip' }, 400, origin);
   const digest = await visitorKey(env.HMAC_SECRET, day, ip, ua);
   const country = typeof request.cf?.country === 'string' && /^[A-Z]{2}$/.test(request.cf.country) ? request.cf.country : 'ZZ';
-  // A single browser page view gets an in-memory random ID. Replayed progress
-  // is idempotent: store the maximum cumulative active time, not a sum.
+  const region = typeof request.cf?.regionCode === 'string'
+    && /^[A-Za-z0-9-]{1,8}$/.test(request.cf.regionCode)
+    ? request.cf.regionCode.toUpperCase() : 'ZZ';
+  // A random page-view ID exists in browser RAM only. Maximum cumulative
+  // measures and scroll depth avoid double-counting retried progress beacons.
   await env.DB.prepare(`
-    INSERT INTO page_views (view_id,day_utc,first_seen_at,last_seen_at,visitor_key,page_path,country_code,referrer_domain,active_seconds)
-    VALUES (?,?,?,?,?,?,?,?,?)
+    INSERT INTO page_views
+    (view_id,day_utc,first_seen_at,last_seen_at,visitor_key,page_path,country_code,referrer_domain,
+     active_seconds,device_type,browser_language,content_language,campaign_source,campaign_medium,
+     campaign_name,region_code,entry_page_path,scroll_depth)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     ON CONFLICT(view_id) DO UPDATE SET
       last_seen_at = excluded.last_seen_at,
-      active_seconds = MAX(page_views.active_seconds, excluded.active_seconds)
+      active_seconds = MAX(page_views.active_seconds, excluded.active_seconds),
+      scroll_depth = MAX(page_views.scroll_depth, excluded.scroll_depth)
     WHERE page_views.day_utc = excluded.day_utc
       AND page_views.page_path = excluded.page_path
-  `).bind(viewId, day, now, now, digest, path, country, safeReferrer(data.referrer), active).run();
+  `).bind(
+    viewId,day,now,now,digest,path,country,safeReferrer(data.referrer),active,
+    device(data.device_type),language(data.browser_language),
+    ['tr','en'].includes(data.content_language) ? data.content_language : 'und',
+    slug(data.campaign_source),slug(data.campaign_medium),slug(data.campaign_name),
+    region,safeEntryPath(data.entry_page_path),depth(data.scroll_depth)
+  ).run();
   return json({ accepted: true }, 202, origin);
 }
 async function aggregateDay(db, day, computedAt) {
@@ -87,6 +144,35 @@ async function aggregateDay(db, day, computedAt) {
              COALESCE(SUM(active_seconds),0), SUM(CASE WHEN active_seconds > 0 THEN 1 ELSE 0 END)
       FROM page_views WHERE day_utc = ? GROUP BY ${column}`).bind(day, dimension, day));
   }
+  for (const [dimension, column] of [
+    ['device','device_type'],['browser_language','browser_language'],
+    ['content_language','content_language'],['campaign_source','campaign_source'],
+    ['campaign_medium','campaign_medium'],['campaign_name','campaign_name'],
+    ['region','region_code'],['entry_page','entry_page_path']
+  ]) {
+    batch.push(db.prepare('DELETE FROM daily_extra_breakdown WHERE day_utc = ? AND dimension = ?')
+      .bind(day,dimension));
+    batch.push(db.prepare(`INSERT INTO daily_extra_breakdown
+      (day_utc,dimension,dimension_value,pageviews,total_active_seconds)
+      SELECT ?,?,${column},COUNT(*),COALESCE(SUM(active_seconds),0)
+      FROM page_views WHERE day_utc = ? GROUP BY ${column}`)
+      .bind(day,dimension,day));
+  }
+  batch.push(db.prepare('DELETE FROM daily_extra_breakdown WHERE day_utc = ? AND dimension = ?')
+    .bind(day,'scroll_band'));
+  batch.push(db.prepare(`INSERT INTO daily_extra_breakdown
+    (day_utc,dimension,dimension_value,pageviews,total_active_seconds)
+    SELECT ?,'scroll_band',
+      CASE WHEN scroll_depth >= 100 THEN '100'
+           WHEN scroll_depth >= 75 THEN '75'
+           WHEN scroll_depth >= 50 THEN '50'
+           WHEN scroll_depth >= 25 THEN '25' ELSE '0' END,
+      COUNT(*),COALESCE(SUM(active_seconds),0)
+    FROM page_views WHERE day_utc = ? GROUP BY 3`).bind(day,day));
+  batch.push(db.prepare('DELETE FROM daily_events WHERE day_utc = ?').bind(day));
+  batch.push(db.prepare(`INSERT INTO daily_events(day_utc,event_type,target,event_count)
+    SELECT ?, event_type,target,COUNT(*) FROM page_events
+    WHERE day_utc = ? GROUP BY event_type,target`).bind(day,day));
   await db.batch(batch);
 }
 async function maintain(db) {
@@ -104,6 +190,9 @@ async function maintain(db) {
       AND EXISTS (SELECT 1 FROM daily_site WHERE daily_site.day_utc = page_views.day_utc)`)
     .bind(isoDayOffset(14)).run();
   // Raw event data is kept for 180 days. Daily aggregate tables remain.
+  await db.prepare(`DELETE FROM page_events WHERE day_utc < ?
+    AND EXISTS (SELECT 1 FROM daily_site WHERE daily_site.day_utc = page_events.day_utc)`)
+    .bind(isoDayOffset(180)).run();
   await db.prepare(`DELETE FROM page_views WHERE day_utc < ?
     AND EXISTS (SELECT 1 FROM daily_site WHERE daily_site.day_utc = page_views.day_utc)`)
     .bind(isoDayOffset(180)).run();
