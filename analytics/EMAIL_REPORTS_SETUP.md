@@ -13,6 +13,17 @@
 - E-postalar **yalnızca toplulaştırılmış veriler** taşır. Günlük HMAC, ham olay satırı, IP, sayfa görüntüleme kimliği veya tam URL gönderilmez. Bir kırılımda 5'ten az görüntüleme/olay varsa o satır e-postada gösterilmez.
 - Tam günler için özet yoksa rapor boş günü sıfır ziyaret gibi göstermez; eksik tarihleri belirtir.
 
+## İlk e-posta bağlantısı testi (otomatik raporlar kapalıyken)
+
+1. GitHub'daki en güncel Worker sürümünün Cloudflare'da **Ready** olduğunu doğrulayın.
+2. Worker **Settings → Variables and Secrets → Add variable** bölümünde **Production**, **Secret** seçin. Key: `EMAIL_TEST_TOKEN`. Value: güvenli biçimde **rastgele üretilmiş en az 32 karakter**; değeri sohbet, e-posta veya GitHub ile paylaşmayın.
+3. Cloudflare **Workers & Pages → mnemorisk-analytics → Edit code → HTTP** bölümünde `POST /email-test` isteği gönderin. İsteğe `x-mnemorisk-test-key` başlığını ekleyin; değeri yalnızca sizin bildiğiniz `EMAIL_TEST_TOKEN` olsun. Gövde boş olabilir. Kodu değiştirmeyin, Worker'ın ana adresini değiştirmenize gerek yok.
+4. Dönen `{"status":"accepted_for_delivery"}` yalnızca Email Service isteği kabul etti demektir. Alıcı posta kutusunda başlığı **MNEMORİSK — e-posta bağlantısı testi** olan mesajı ayrıca doğrulayın.
+5. Bir test başarıyla/başarısız olarak kaydedildiğinde ikinci deneme engellenir (`report_deliveries.report_key = 'email-transport-test-v1'`). Sorun olursa hata kodu üzerinden inceleme gerekir; tabloyu veya testi rastgele sıfırlamayın.
+6. Doğrulama sonrası `EMAIL_TEST_TOKEN` Secret'ını silin; ayrıca testi yapan endpoint'in GitHub kodundan çıkarılması önerilir. `REPORTS_ENABLED` **false** kalır.
+
+Bu test hiçbir ziyaretçi olayı üretmez veya gerçek istatistik raporu göndermez. **Yanlışlıkla `HMAC_SECRET` değerini test anahtarı olarak kullanmayın.**
+
 ## Cloudflare etkinleştirme adımları
 
 1. KVKK kapsamında işleme şartı ve yurt dışına aktarım değerlendirmesini netleştirin; analitik veri toplama ayrı olarak etkinleştirilmeden raporlama da veri üretemez.
