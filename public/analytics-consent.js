@@ -10,11 +10,11 @@
   const policy = isEnglish ? '/en/kvkk/' : '/kvkk/';
   const strings = isEnglish ? {
     title:'Optional site statistics',
-    body:'Help us improve MNEMORISK. With your permission we measure which pages are visited, broad country information, language, device type, reading duration and clicks. We do not use advertising trackers or analytics cookies. You can refuse and still use the whole site.',
+    body:'May we collect anonymous-looking site usage statistics (pages, countries, reading time and clicks) to improve MNEMORISK? No ads or analytics cookies. You may decline.',
     accept:'Accept analytics',reject:'Reject analytics',change:'Analytics preferences',saved:'Your analytics preference has been saved.'
   } : {
     title:'İsteğe bağlı site istatistikleri',
-    body:'MNEMORİSK\'i geliştirmemize yardımcı olun. İzin verirseniz ziyaret edilen sayfalar, ülke düzeyinde ilgi, dil, cihaz türü, okuma süresi ve tıklama sayılarını ölçeriz. Reklam takibi veya analitik çerez kullanmayız. Reddetseniz de sitenin tamamını kullanabilirsiniz.',
+    body:'MNEMORİSK\'i geliştirmek için sayfa ziyaretleri, ülkeler, okuma süreleri ve tıklamaları ölçmemize izin verir misiniz? Reklam takibi ve analitik çerez yoktur. Reddedebilirsiniz.',
     accept:'İstatistiklere izin ver',reject:'İzin verme',change:'İstatistik tercihleri',saved:'İstatistik tercihiniz kaydedildi.'
   };
   const get = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
