@@ -33,11 +33,10 @@ name = "EMAIL"
 destination_address = "akin.bakioglu@erzincan.edu.tr"
 allowed_sender_addresses = ["reports@mnemorisk.org"]
 
-# When the private R2 bucket has been created, uncomment the binding.
-# [[r2_buckets]]
-# binding = "ARCHIVE"
-# bucket_name = "mnemorisk-private-archive"
+# Monthly archives use a private GitHub repository instead of paid R2.
+# Set GITHUB_ARCHIVE_TOKEN as a Cloudflare Secret scoped only to
+# akinbakioglu-ai/mnemorisk-analytics-archive (Contents read/write).
+# Keep ARCHIVE_ENABLED=false until the private repo and token are tested.
 
-# Dashboard must remain disabled until DASHBOARD_SECRET exists and
-# the stats.mnemorisk.org hostname is protected by Cloudflare Access.
-# The code additionally requires an independent Basic-auth secret.
+# Dashboard is protected by a strong DASHBOARD_SECRET (Basic auth). A
+# separate Cloudflare Access policy may be added later for stronger protection.
