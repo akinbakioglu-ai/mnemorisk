@@ -1,4 +1,6 @@
 import { sendScheduledReports } from './reports.js';
+import { dashboard } from './dashboard.js';
+import { archiveMonthly } from './archive.js';
 // MNEMORISK analytics collector. Intentionally not deployed by the site workflow.
 // No cookies, sessionStorage, localStorage or raw IP persistence.
 const ALLOWED_ORIGINS = new Set(['https://mnemorisk.org', 'https://www.mnemorisk.org']);
@@ -202,6 +204,10 @@ async function maintain(db) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/dashboard') {
+      if(request.method!=='GET') return json({error:'method_not_allowed'},405);
+      return dashboard(request,env);
+    }
     if (url.pathname === '/health' && request.method === 'GET') {
       try { await env.DB.prepare('SELECT 1 AS ok').first(); return json({ ok: true }); }
       catch { return json({ ok: false }, 503); }
@@ -228,6 +234,7 @@ export default {
       // Recalculate daily statistics before preparing the emailed report.
       await maintain(env.DB);
       await sendScheduledReports(env);
+      await archiveMonthly(env);
     })());
   }
 };
