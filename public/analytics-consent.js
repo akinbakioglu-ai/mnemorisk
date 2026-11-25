@@ -10,7 +10,7 @@
   const policy = isEnglish ? '/en/kvkk/' : '/kvkk/';
   const strings = isEnglish ? {
     title:'Optional site statistics',
-    body:'May we collect anonymous-looking site usage statistics (pages, countries, reading time and clicks) to improve MNEMORISK? No ads or analytics cookies. You may decline.',
+    body:'May we measure site usage (pages, countries, reading time and clicks) to improve MNEMORISK? No ads or analytics cookies. You may decline.',
     accept:'Accept analytics',reject:'Reject analytics',change:'Analytics preferences',saved:'Your analytics preference has been saved.'
   } : {
     title:'İsteğe bağlı site istatistikleri',
