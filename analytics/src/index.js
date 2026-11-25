@@ -1,4 +1,5 @@
 import { sendScheduledReports } from './reports.js';
+import { emailTest } from './email-test.js';
 // MNEMORISK analytics collector. Intentionally not deployed by the site workflow.
 // No cookies, sessionStorage, localStorage or raw IP persistence.
 const ALLOWED_ORIGINS = new Set(['https://mnemorisk.org', 'https://www.mnemorisk.org']);
@@ -202,6 +203,7 @@ async function maintain(db) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/email-test') return emailTest(request, env);
     if (url.pathname === '/health' && request.method === 'GET') {
       try { await env.DB.prepare('SELECT 1 AS ok').first(); return json({ ok: true }); }
       catch { return json({ ok: false }, 503); }
