@@ -20,6 +20,9 @@ jobs:
           node --check analytics/src/index.js
           node --check analytics/client.js
           node --check analytics/src/reports.js
+          node --check analytics/src/dashboard.js
+          node --check analytics/src/archive.js
+          node --test analytics/tests/privacy-gates.test.mjs
           node --test analytics/tests/reports.test.mjs
       - name: Test D1 SQLite migrations
         run: |
