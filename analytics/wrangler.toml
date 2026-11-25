@@ -21,6 +21,7 @@ migrations_dir = "migrations"
 # Keep sending disabled until verified in Cloudflare and migration applied.
 [vars]
 REPORTS_ENABLED = "false"
+COLLECTION_ENABLED = "false"
 
 # Sender domain and destination address verified in Cloudflare.
 # Automated report delivery stays disabled until deliberate activation.
