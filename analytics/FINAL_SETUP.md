@@ -20,18 +20,21 @@ Worker → Settings → Variables and Secrets → Secret:
 Cloudflare Access korumasına **ek olarak** panel HTTPS Basic auth ister: kullanıcı `mnemorisk`, parola `DASHBOARD_SECRET` değeri.
 Worker'ın `wrangler.toml` yapılandırmasında `DASHBOARD_ENABLED="true"` yapılıp dağıtıldığında panel `https://stats.mnemorisk.org/dashboard` adresinde görülür. Worker, farklı hostname üzerinden gelen /dashboard isteklerini 404 ile reddeder. Panel yalnızca günlük kesinleştirilmiş özetleri görüntüler; küçük kırılımları (5'ten az) gizler.
 
-## 3. Aylık CSV arşivi (private R2)
-Cloudflare → R2 Object Storage → Create bucket: `mnemorisk-private-archive`.
-**Public access = disabled** (r2.dev ve Custom Domain yok). Kullanılabilir EU bölgesi/jurisdiction seçeneği görünürse, aktarım incelemesine uygun olanı kullanın.
-Worker → Settings → Bindings → Add binding → R2 bucket → variable `ARCHIVE`, bucket `mnemorisk-private-archive`.
-Github `analytics/wrangler.toml` dosyasındaki `[[r2_buckets]]` bloğu etkinleştirilmelidir; yalnız panelde eklenen binding sonraki Wrangler deploy ile kaldırılabilir.
-`ARCHIVE_ENABLED="true"` olduktan sonra her ayın 5'inde 07:15 UTC çalışan zamanlanmış görev, geçen ayın CSV'lerini `monthly/YYYY-MM/` altında özel kovaya koyar:
-- `daily_site.csv` — günlük sayfa görüntüleme, ziyaret, ziyaretçi-gün, süre, ölçüm sürümü
-- `monthly_breakdowns.csv` — yalnız ay içinde >=5 görüntüleme içeren kırılımlar
-- `monthly_events.csv` — yalnız ay içinde >=5 olay içeren hedefler
-- `manifest.json` — tarih aralığı, ölçüm sürümleri, eksik günler, eşik ve açıklamalar
+## 3. Aylık CSV arşivi (ücretsiz, ayrı ve özel GitHub deposu)
+**R2 aboneliği kullanılmıyor, R2'yi etkinleştirmeyin.**
 
-Arşivde ham olay satırı, IP, günlük HMAC veya tekil görüntüleme kimliği yer almaz. `manifest.json` en son yazılır; mevcutsa ayın yeniden arşivlenmesini engeller. Önceden hazırlanmış günler olmadan açmayın. Bu, **ikinci bir özel depolama alanıdır**, kamuya açık GitHub deposu değildir.
+1. GitHub'da yeni repository oluştur: `akinbakioglu-ai/mnemorisk-analytics-archive`. **Private** seç; Add README açık olsun (ana dal `main`).
+2. GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token. Repository access: **Only select repositories** → `mnemorisk-analytics-archive`; Repository permissions → **Contents: Read and write**, Metadata read-only; kısa/uygun son kullanma tarihi. Token'ı sohbet, Github dosyası veya ekran görüntüsünde paylaşma.
+3. Cloudflare → Workers & Pages → mnemorisk-analytics → Settings → Variables and Secrets → Add variable → Production, **Secret**. Key: `GITHUB_ARCHIVE_TOKEN`; Value: özel repo için oluşturulan fine-grained token.
+4. `ARCHIVE_ENABLED` şu an `false` kalır. Gerçek veri toplama ve günlük özetler doğrulanınca GitHub `analytics/wrangler.toml` içinde `ARCHIVE_ENABLED="true"` yapılarak dağıtılır.
+5. Worker her ayın **5'inde 07:15 UTC** önceki ayın kapanmış D1 özetlerini GitHub API aracılığıyla private depodaki `monthly/YYYY-MM/` klasörüne yazar. Arşivde:
+   - `daily_site.csv`: Günlük sayfa görüntüleme, ziyaret, ziyaretçi-gün, süre, ölçüm sürümü
+   - `monthly_breakdowns.csv`: Aylık en az 5 görüntülemeli bağımsız kırılımlar
+   - `monthly_events.csv`: Aylık en az 5 olaylı hedefler
+   - `manifest.json`: Eksik günler, sürüm, ay, gizlilik eşiği
+6. İşlem hedef GitHub deposunun gerçekten **private** olduğunu API üzerinden doğrular. Depo kamuya açıksa **hiçbir şey yüklemez**. Manifest en son yazılır; bir sonraki çalışmada manifest varsa tekrar yüklemez. Token süresi dolarsa cron hata verir; düzenli kontrol edilir.
+
+**Not:** GitHub Actions üzerinden Cloudflare D1'e ek erişim anahtarı vermek yerine, zaten D1'e bağlı Worker mevcut Cron ile özel depoya dosyaları yükler. Böylece ayrı Cloudflare API tokenı ve yeni bir Actions izin zinciri gerekmez.
 
 ## 4. Haftalık/aylık raporlar
 `REPORTS_ENABLED="true"` yalnız canlı analitik ve günlük özetler çalışıp doğrulandıktan sonra yapılır. Worker Cron:
@@ -41,15 +44,15 @@ Arşivde ham olay satırı, IP, günlük HMAC veya tekil görüntüleme kimliği
 Alıcı: `akin.bakioglu@erzincan.edu.tr`, gönderici: `reports@mnemorisk.org`. Doğrulanmış e-posta gönderim testi başarıyla yapıldı. `report_deliveries` tek-sefer gönderimi kaydeder. Yanlışlıkla toplu tekrar gönderim yapılmamalı. Başarısız durumlar otomatik yeniden denenmez; işleyiş gözlenmelidir.
 
 ## 5. KVKK değerlendirmesinden sonraki tek açılış prosedürü
-1. `analytics.mnemorisk.org/health` testi ve `stats.mnemorisk.org/dashboard` Access + Basic auth koruması, D1 şeması, R2 private arşiv ve e-posta gönderimi doğrulanır.
+1. `analytics.mnemorisk.org/health` testi ve `stats.mnemorisk.org/dashboard` Access + Basic auth koruması, D1 şeması, GitHub private arşiv ve e-posta gönderimi doğrulanır.
 2. Güncellenmiş KVKK aydınlatması yayımlanır; işleme şartı ve yurtdışı aktarım mekanizması netleştirilir.
 3. İşleme şartına göre gerekliyse çalışan tercih/izin mekanizması eklenir.
 4. Worker `COLLECTION_ENABLED=true`, `REPORTS_ENABLED=true`, uygun durumda `ARCHIVE_ENABLED=true`, `DASHBOARD_ENABLED=true` olarak dağıtılır.
 5. GitHub repository variable `PUBLIC_ANALYTICS_ENABLED=true` kaydedilir ve Astro site iş akışı yeniden çalıştırılır. Bu son adım tarayıcıdaki takip kodunu **gerçekten açar**.
-6. Gerçek/sentetik deneme görüntülemeleri, cron, R2 export ve e-posta raporları doğrulanır. Yanlış hesaplamaları gizlemeyin ve ölçüm sürümünü değiştirmeden yeniden hesaplamayın.
+6. Gerçek/sentetik deneme görüntülemeleri, cron, GitHub özel depo arşivi ve e-posta raporları doğrulanır. Yanlış hesaplamaları gizlemeyin ve ölçüm sürümünü değiştirmeden yeniden hesaplamayın.
 
 ## Kaynaklar
 - https://developers.cloudflare.com/workers/configuration/routing/custom-domains/
 - https://developers.cloudflare.com/workers/configuration/cloudflare-access/
-- https://developers.cloudflare.com/r2/buckets/public-buckets/
+- https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28
 - https://developers.cloudflare.com/workers/configuration/cron-triggers/
