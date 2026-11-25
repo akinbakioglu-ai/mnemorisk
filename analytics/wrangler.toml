@@ -18,15 +18,15 @@ database_name = "mnemorisk-analytics"
 database_id = "13b06076-f03c-498d-a0b9-14d10f315ea8"
 migrations_dir = "migrations"
 
-# Keep sending disabled until verified in Cloudflare and migration applied.
+# Analytics is gated in the browser by active opt-in; provider transfer review remains a separate compliance requirement.
 [vars]
-REPORTS_ENABLED = "false"
-COLLECTION_ENABLED = "false"
+REPORTS_ENABLED = "true"
+COLLECTION_ENABLED = "true"
 DASHBOARD_ENABLED = "true"
-ARCHIVE_ENABLED = "false"
+ARCHIVE_ENABLED = "true"
 
 # Sender domain and destination address verified in Cloudflare.
-# Automated report delivery stays disabled until deliberate activation.
+# E-mail reporting activates after collection produces daily summaries.
 
 [[send_email]]
 name = "EMAIL"
@@ -36,7 +36,7 @@ allowed_sender_addresses = ["reports@mnemorisk.org"]
 # Monthly archives use a private GitHub repository instead of paid R2.
 # Set GITHUB_ARCHIVE_TOKEN as a Cloudflare Secret scoped only to
 # akinbakioglu-ai/mnemorisk-analytics-archive (Contents read/write).
-# Keep ARCHIVE_ENABLED=false until the private repo and token are tested.
+# Archive requires the private target repository and scoped GITHUB_ARCHIVE_TOKEN.
 
 # Dashboard is protected by a strong DASHBOARD_SECRET (Basic auth). A
 # separate Cloudflare Access policy may be added later for stronger protection.
