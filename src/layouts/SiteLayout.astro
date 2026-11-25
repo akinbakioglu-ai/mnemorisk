@@ -127,7 +127,8 @@ img,svg{max-width:100%}
   <div class="footer-bottom"><span class="footer-legal">© {new Date().getFullYear()} MNEMORİSK <a href={href(isEnglish ? 'en/kvkk/' : 'kvkk/')} aria-label={isEnglish ? 'Personal data protection and privacy' : 'KVKK ve gizlilik bilgileri'}>{isEnglish ? 'Privacy' : 'KVKK'}</a></span><span>{isEnglish ? 'Research project · English version' : 'Bilimsel içerik · Türkçe'}</span></div>
  </div>
 </footer>
-{analyticsEnabled && <script is:inline src={href('analytics-client.js')} defer></script>}
+<!-- Analytics client may load only after an affirmative visitor choice. -->
+<script is:inline src={href('analytics-consent.js')} data-analytics-enabled={analyticsEnabled ? 'true' : 'false'} defer></script>
 <script>
  const button=document.querySelector('.menu-toggle');
  const nav=document.querySelector('#site-nav');
