@@ -2,6 +2,8 @@
 import { href, menu, menuEn } from '../data/site.js';
 const { title='MNEMORİSK', description='Erzincan’da deprem hafızası, risk algısı ve sosyal zarar görebilirlik üzerine araştırma.' } = Astro.props;
 const current = Astro.url.pathname;
+// Explicit build-time gate: no analytics script or network request until authorized.
+const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED === 'true';
 const isEnglish = /\/en(?:\/|$)/.test(current);
 const activeMenu = isEnglish ? menuEn : menu;
 const routePairs = { project: 'proje', research: 'arastirma', maps: 'haritalar', publications: 'yayinlar', team: 'ekip', contact: 'iletisim' };
@@ -125,6 +127,7 @@ img,svg{max-width:100%}
   <div class="footer-bottom"><span class="footer-legal">© {new Date().getFullYear()} MNEMORİSK <a href={href(isEnglish ? 'en/kvkk/' : 'kvkk/')} aria-label={isEnglish ? 'Personal data protection and privacy' : 'KVKK ve gizlilik bilgileri'}>{isEnglish ? 'Privacy' : 'KVKK'}</a></span><span>{isEnglish ? 'Research project · English version' : 'Bilimsel içerik · Türkçe'}</span></div>
  </div>
 </footer>
+{analyticsEnabled && <script is:inline src={href('analytics-client.js')} defer></script>}
 <script>
  const button=document.querySelector('.menu-toggle');
  const nav=document.querySelector('#site-nav');
