@@ -24,6 +24,9 @@ test('dashboard requires independent secret',async()=>{
 test('archive does not write before enabled',async()=>{
  await archiveMonthly({ARCHIVE_ENABLED:'false'},new Date('2026-12-05T09:00:00Z'));
 });
-test('archive requires a private bucket binding',async()=>{
- await assert.rejects(()=>archiveMonthly({ARCHIVE_ENABLED:'true'},new Date('2026-12-05T09:00:00Z')),/binding missing/);
+test('archive requires DB and GitHub token before exporting',async()=>{
+ await assert.rejects(()=>archiveMonthly({ARCHIVE_ENABLED:'true'},new Date('2026-12-05T09:00:00Z')),/secret missing/);
+});
+test('archive only runs on the fifth day',async()=>{
+ await archiveMonthly({ARCHIVE_ENABLED:'false'},new Date('2026-12-06T09:00:00Z'));
 });
