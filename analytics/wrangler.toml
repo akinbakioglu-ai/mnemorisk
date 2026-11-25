@@ -22,7 +22,7 @@ migrations_dir = "migrations"
 [vars]
 REPORTS_ENABLED = "false"
 COLLECTION_ENABLED = "false"
-DASHBOARD_ENABLED = "false"
+DASHBOARD_ENABLED = "true"
 ARCHIVE_ENABLED = "false"
 
 # Sender domain and destination address verified in Cloudflare.
