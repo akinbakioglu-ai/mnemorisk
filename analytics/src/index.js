@@ -207,6 +207,8 @@ export default {
       catch { return json({ ok: false }, 503); }
     }
     if (url.pathname !== '/collect') return json({ error: 'not_found' }, 404);
+    // Explicit privacy gate: deploying the Worker never starts collection.
+    if (env.COLLECTION_ENABLED !== 'true') return json({ error: 'collection_disabled' }, 503);
     if (request.method === 'OPTIONS') {
       const origin = request.headers.get('origin') || '';
       return new Response(null, { status: 204, headers: {
