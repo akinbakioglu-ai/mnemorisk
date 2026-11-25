@@ -18,8 +18,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Stage dormant analytics client (not loaded without opt-in flag)
+        run: cp analytics/client.js public/analytics-client.js
       - run: npm install
       - uses: withastro/action@v3
+        env:
+          PUBLIC_ANALYTICS_ENABLED: ${{ vars.PUBLIC_ANALYTICS_ENABLED || 'false' }}
   deploy:
     needs: build
     runs-on: ubuntu-latest
